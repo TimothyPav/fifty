@@ -23,27 +23,6 @@ def check_key(content_of_file):
             return False
     return True
 
-def validate_key(key):
-    # atleast 8 chars long
-    # one special character
-    if len(key) < 8:
-        print("Key my be atleast 8 characters")
-        return False
-    check = False
-    special_characters = '"!@#$%^&*()-+?_=,<>/"\''
-    special_characters_set = set(special_characters)
-
-
-    for c in key:
-        if c.isspace():
-            print("Key can not contain whitespace characters")
-            return False
-        if c in special_characters_set:
-            check = True
-        
-    if not check:
-        print("Key must contain atleast 1 special character")
-    return check
 
 def encrypt(file, key):
     f = open(file, "r")
@@ -100,8 +79,6 @@ def main():
         elif choice == '1':
             file = input("File location?: ")
             key = input("Key?: ")
-            if not validate_key(key):
-                return
             encrypt(file, key)
             print("File Encrypted.")
 
@@ -115,3 +92,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# python3 main.py test.txt
+# key?: 
