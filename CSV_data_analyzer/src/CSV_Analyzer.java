@@ -21,22 +21,13 @@ public class CSV_Analyzer {
         num_cols = get_num_of_cols();
     }
 
-    public static void print(Object... objects) {
+    private static void print(Object... objects) {
         String result = Arrays.stream(objects)
                 .map(obj -> obj == null ? "null" : obj.toString())
                 .collect(Collectors.joining(" "));
         System.out.println(result);
     }
 
-
-    public int get_column_by_name(String name) {
-        int i = 1;
-        while (true) {
-            if (coord(1, i).equals(name)) return i;
-            else if (i >= num_cols) return -1;
-            i++;
-        }
-    }
 
     private int get_num_of_cols() {
         int col = 1;
@@ -62,6 +53,35 @@ public class CSV_Analyzer {
             System.err.println("File '" + file + "' not found");
         }
         return scanner;
+    }
+
+    public Tuple<Integer, String> get_column_by_name(String name) {
+        int i = 1;
+        while (!coord(1, i).equals(name)) {
+            if (i >= num_cols) return new Tuple<>(-1, "");
+            i++;
+        }
+        String example_value = coord(2, i);
+
+        try {
+            Integer.parseInt(example_value);
+            return new Tuple<>(i, "Integer");
+        } catch (NumberFormatException _) {
+        }
+
+        try {
+            Double.parseDouble(example_value);
+            return new Tuple<>(i, "Double");
+        } catch (NumberFormatException _) {
+        }
+
+        try {
+            java.time.LocalDate.parse(example_value);
+            return new Tuple<>(i, "Date");
+        } catch (java.time.format.DateTimeParseException _) {
+        }
+
+        return new Tuple<>(i, "String");
     }
 
     public String coord(int row, int col) {
