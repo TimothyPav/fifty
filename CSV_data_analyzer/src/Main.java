@@ -1,9 +1,9 @@
 public class Main {
     public static void main(String[] args) {
-        CSV_Analyzer csv = new CSV_Analyzer("data/email.csv", ';');
-        String test = csv.coord(2,2);
+        CSV_Analyzer csv = new CSV_Analyzer("data/employee_data.csv", ',');
+         int test = csv.get_column_by_name("ID");
+        //String test = csv.coord(1,5);
         System.out.println(test);
 
     }
-    // /home/tim/projects/fifty/CSV_data_analyzer/data/people-100.csv
 }

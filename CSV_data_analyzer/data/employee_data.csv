@@ -1,0 +1,51 @@
+ID,Name,Age,Salary,Department,Start Date,Performance Score
+1,John Smith,35,75000.50,Sales,2019-03-15,4.2
+2,Emma Johnson,28,62000.75,Marketing,2020-06-01,3.8
+3,Michael Brown,42,88000.25,Engineering,2015-11-30,4.5
+4,Sarah Davis,31,70000.00,Human Resources,2018-09-22,4.0
+5,David Wilson,39,82000.50,Sales,2017-05-10,4.3
+6,Lisa Anderson,26,58000.25,Marketing,2021-01-15,3.6
+7,Robert Taylor,45,95000.75,Engineering,2014-08-05,4.7
+8,Jennifer Martinez,33,72000.00,Human Resources,2019-11-11,4.1
+9,William Thompson,37,78000.50,Sales,2018-02-28,4.4
+10,Elizabeth Clark,29,64000.25,Marketing,2020-04-17,3.9
+11,Christopher Lee,41,86000.75,Engineering,2016-07-20,4.6
+12,Jessica White,32,71000.00,Human Resources,2019-01-05,4.2
+13,Daniel Harris,36,76000.50,Sales,2018-10-09,4.3
+14,Amanda Lewis,27,60000.25,Marketing,2021-03-22,3.7
+15,Matthew Robinson,44,93000.75,Engineering,2015-05-18,4.8
+16,Laura Walker,30,69000.00,Human Resources,2019-08-30,4.0
+17,James Scott,38,80000.50,Sales,2017-12-12,4.5
+18,Sophia Green,25,56000.25,Marketing,2021-06-07,3.5
+19,Andrew Adams,43,89000.75,Engineering,2015-09-25,4.6
+20,Olivia Baker,34,73000.00,Human Resources,2018-11-03,4.2
+21,Richard Carter,40,84000.50,Sales,2016-04-14,4.4
+22,Emily Mitchell,28,63000.25,Marketing,2020-07-29,3.8
+23,Thomas Phillips,46,97000.75,Engineering,2014-01-10,4.9
+24,Ava Cooper,31,71000.00,Human Resources,2019-05-20,4.1
+25,Joseph Reed,37,79000.50,Sales,2017-08-08,4.3
+26,Grace Morgan,26,59000.25,Marketing,2021-02-11,3.7
+27,Charles Murphy,42,87000.75,Engineering,2015-10-05,4.5
+28,Chloe Bell,33,72000.00,Human Resources,2019-03-17,4.0
+29,Samuel Ross,39,81000.50,Sales,2017-06-23,4.4
+30,Mia Wood,29,65000.25,Marketing,2020-09-09,3.9
+31,Benjamin Cox,44,94000.75,Engineering,2015-02-14,4.7
+32,Ella Ward,32,70000.00,Human Resources,2019-07-01,4.2
+33,Henry Foster,36,77000.50,Sales,2018-04-19,4.3
+34,Lily Gray,27,61000.25,Marketing,2021-05-03,3.8
+35,Alexander Hayes,41,85000.75,Engineering,2016-11-28,4.6
+36,Victoria Brooks,30,68000.00,Human Resources,2020-01-22,4.1
+37,Jack Price,38,79000.50,Sales,2017-09-07,4.4
+38,Zoe Bennett,25,57000.25,Marketing,2021-08-16,3.6
+39,Nathan Watson,45,96000.75,Engineering,2014-06-30,4.8
+40,Scarlett Rogers,34,74000.00,Human Resources,2018-12-05,4.2
+41,Ryan Kelly,40,83000.50,Sales,2016-07-11,4.5
+42,Hannah Sanders,28,64000.25,Marketing,2020-10-26,3.9
+43,Dylan James,43,90000.75,Engineering,2015-03-09,4.7
+44,Audrey Nelson,31,70000.00,Human Resources,2019-09-14,4.0
+45,Liam Collins,37,78000.50,Sales,2018-01-31,4.3
+46,Evelyn Cook,26,60000.25,Marketing,2021-04-20,3.7
+47,Owen Russell,42,88000.75,Engineering,2016-02-06,4.6
+48,Aria Griffin,33,73000.00,Human Resources,2019-06-18,4.1
+49,Luke Diaz,39,82000.50,Sales,2017-11-22,4.4
+50,Paisley Cruz,29,66000.25,Marketing,2020-08-03,3.8
