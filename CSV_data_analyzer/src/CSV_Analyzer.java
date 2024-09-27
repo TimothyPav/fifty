@@ -1,23 +1,33 @@
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.Scanner; // Import the Scanner class to read text files
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.HashMap;
+
+
+import static java.lang.Math.min;
 
 public class CSV_Analyzer {
     private final File file;
     private Scanner scanner;
-    private char seperator;
+    private final char separator;
+    private final int num_rows;
     private final int num_cols;
+
 
     public CSV_Analyzer(String file_name, char separator) {
         file = new File(file_name);
-        this.seperator = separator;
+        this.separator = separator;
         try {
             scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
             System.err.println("File '" + file_name + "' not found");
         }
+
+        num_rows = get_num_of_rows();
         num_cols = get_num_of_cols();
     }
 
@@ -37,13 +47,21 @@ public class CSV_Analyzer {
         if (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             for (int i = 0; i < line.length(); i++) {
-                if (line.charAt(i) == seperator && quotes % 2 == 0) col++;
+                if (line.charAt(i) == separator && quotes % 2 == 0) col++;
                 else if (line.charAt(i) == '"') quotes++;
             }
         }
         return col;
+    }
 
-
+    private int get_num_of_rows() {
+        int row = 0;
+        Scanner scanner = build_scanner();
+        while (scanner.hasNextLine()) {
+            scanner.nextLine();
+            row++;
+        }
+        return row;
     }
 
     private Scanner build_scanner() {
@@ -53,6 +71,14 @@ public class CSV_Analyzer {
             System.err.println("File '" + file + "' not found");
         }
         return scanner;
+    }
+
+    private static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     public Tuple<Integer, String> get_column_by_name(String name) {
@@ -103,10 +129,10 @@ public class CSV_Analyzer {
                 for (int i = 0; i < line.length(); i++) {
                     if (line.charAt(i) == '"') quotes++; // account for commas that are part of a cell
 
-                    if (line.charAt(i) == seperator && quotes % 2 == 0) {
+                    if (line.charAt(i) == separator && quotes % 2 == 0) {
                         curr_col++;
                     }
-                    if (curr_col == col && line.charAt(i) != seperator) {
+                    if (curr_col == col && line.charAt(i) != separator) {
                         sb.append(line.charAt(i));
                         built = true;
                     } else if (built) break;
@@ -117,6 +143,118 @@ public class CSV_Analyzer {
         }
 
         return sb.toString();
+    }
+
+    public double mean(Tuple<Integer, String> col) {
+        if (!col.second.equals("Integer") && !col.second.equals("Double")) {
+            System.err.println("Mean must use column with Integers or Doubles");
+            return -1;
+        }
+        String type = col.second;
+
+        int row = 2;
+        double mean = 0;
+        while (row != num_rows + 1) {
+            if (type.equals("Integer")) mean += Integer.parseInt(coord(row, col.first));
+            else mean += Double.parseDouble(coord(row, col.first));
+            row++;
+        }
+        return mean / (num_rows - 1);
+    }
+
+    public double[] min_max(Tuple<Integer, String> col) {
+        if (!col.second.equals("Integer") && !col.second.equals("Double")) {
+            System.err.println("Column must use Integers or Doubles");
+            System.exit(-1);
+        }
+        String type = col.second;
+
+        int row = 2;
+        double[] min_max_vals = {Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY};
+        while (row != num_rows + 1) {
+            double val = Double.parseDouble(coord(row, col.first));
+
+            min_max_vals[0] = Math.min(min_max_vals[0], val);
+            min_max_vals[1] = Math.max(min_max_vals[1], val);
+            row++;
+        }
+        return min_max_vals;
+    }
+
+    public double range(Tuple<Integer, String> col) {
+        if (!col.second.equals("Integer") && !col.second.equals("Double")) {
+            System.err.println("Column must use Integers or Doubles");
+            System.exit(-1);
+        }
+        double[] min_max_vals = min_max(col);
+        return (min_max_vals[1] - min_max_vals[0]);
+    }
+
+    public double median(Tuple<Integer, String> col) {
+        if (!col.second.equals("Integer") && !col.second.equals("Double")) {
+            System.err.println("Column must use Integers or Doubles");
+            System.exit(-1);
+        }
+        List<Double> vals = new ArrayList<>();
+        int row = 2;
+        while (row < num_rows + 1) {
+            vals.add(Double.parseDouble(coord(row, col.first)));
+
+            row++;
+        }
+        Collections.sort(vals);
+        if (vals.size() % 2 == 1) {
+            return vals.get(vals.size() / 2);
+        } else {
+            return ((vals.get(vals.size() / 2) + vals.get((vals.size() / 2) - 1)) / 2);
+        }
+    }
+
+    public double standard_deviation(Tuple<Integer, String> col) {
+        if (!col.second.equals("Integer") && !col.second.equals("Double")) {
+            System.err.println("Column must use Integers or Doubles");
+            System.exit(-1);
+        }
+
+        int row = 2;
+        double mean = mean(col);
+        double added_deviations = 0;
+        while (row < num_rows + 1) {
+            double val = Math.pow(Double.parseDouble(coord(row, col.first)) - mean, 2);
+            added_deviations += val;
+
+            row++;
+        }
+
+        return round(Math.sqrt(added_deviations / num_rows-1), 3);
+    }
+
+    // TODO for Strings
+    // Count of unique values
+    // Count of most frequent values
+    // Longest and shortest String
+
+    public int unique_values(Tuple<Integer, String> col){
+        if (!col.second.equals("String")) {
+            System.err.println("Column must use Strings");
+            System.exit(-1);
+        }
+
+        HashSet<String> unique_values = new HashSet<>();
+        int row = 2;
+        while (row < num_rows + 1){
+            String val = coord(row, col.first);
+            unique_values.add(val);
+
+            row++;
+        }
+        return unique_values.size();
+    }
+
+    public Tuple<Integer, String> most_frequent(Tuple<Integer, String> col){
+        HashMap<String, Integer> most_frequent = new HashMap<>();
+        return new Tuple<>(1, "");
+
     }
 
     public void print_csv() {
