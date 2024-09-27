@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.HashSet;
 import java.util.HashMap;
+import java.util.Map;
 
 
 import static java.lang.Math.min;
@@ -79,6 +80,29 @@ public class CSV_Analyzer {
         BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> List<T> col_to_array(Tuple<Integer, String> col) {
+        List<Integer> integerList = new ArrayList<>();
+        List<Double> doubleList = new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
+
+        for (int row = 2; row < num_rows + 1; row++) {
+            String val = coord(row, col.first);
+            switch (col.second) {
+                case "Integer" -> integerList.add(Integer.parseInt(val));
+                case "Double" -> doubleList.add(Double.parseDouble(val));
+                case "String" -> stringList.add(val);
+            }
+        }
+
+        return switch (col.second) {
+            case "Integer" -> (List<T>) integerList;
+            case "Double" -> (List<T>) doubleList;
+            case "String" -> (List<T>) stringList;
+            default -> throw new IllegalArgumentException("Unsupported type of column ");
+        };
     }
 
     public Tuple<Integer, String> get_column_by_name(String name) {
@@ -226,15 +250,10 @@ public class CSV_Analyzer {
             row++;
         }
 
-        return round(Math.sqrt(added_deviations / num_rows-1), 3);
+        return round(Math.sqrt(added_deviations / num_rows - 1), 3);
     }
 
-    // TODO for Strings
-    // Count of unique values
-    // Count of most frequent values
-    // Longest and shortest String
-
-    public int unique_values(Tuple<Integer, String> col){
+    public int unique_values(Tuple<Integer, String> col) {
         if (!col.second.equals("String")) {
             System.err.println("Column must use Strings");
             System.exit(-1);
@@ -242,7 +261,7 @@ public class CSV_Analyzer {
 
         HashSet<String> unique_values = new HashSet<>();
         int row = 2;
-        while (row < num_rows + 1){
+        while (row < num_rows + 1) {
             String val = coord(row, col.first);
             unique_values.add(val);
 
@@ -251,10 +270,60 @@ public class CSV_Analyzer {
         return unique_values.size();
     }
 
-    public Tuple<Integer, String> most_frequent(Tuple<Integer, String> col){
+    public Tuple<Integer, List<String>> most_frequent(Tuple<Integer, String> col) {
         HashMap<String, Integer> most_frequent = new HashMap<>();
-        return new Tuple<>(1, "");
+        int row = 2;
+        int max = Integer.MIN_VALUE;
+        while (row < num_rows + 1) {
+            String val = coord(row, col.first);
+            if (most_frequent.containsKey(val)) {
+                most_frequent.put(val, most_frequent.get(val) + 1);
+            } else {
+                most_frequent.put(val, 1);
+            }
+            max = Math.max(max, most_frequent.get(val));
 
+            row++;
+        }
+
+        List<String> vals = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : most_frequent.entrySet()) {
+            if (entry.getValue() == max) vals.add(entry.getKey());
+        }
+
+        return new Tuple<>(max, vals);
+    }
+
+    public Tuple<List<String>, List<String>> shortest_longest(Tuple<Integer, String> col){
+        if (!col.second.equals("String")) {
+            System.err.println("Column must use Strings");
+            System.exit(-1);
+        }
+
+        HashMap<Integer, List<String>> shortest_longest = new HashMap<>();
+        HashSet<String> dups = new HashSet<>();
+
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        int row = 2;
+
+        while (row < num_rows + 1){
+            String val = coord(row, col.first);
+            int len = val.length();
+            min = Math.min(min, len);
+            max = Math.max(max, len);
+
+            if (!shortest_longest.containsKey(len)){
+               shortest_longest.put(len, new ArrayList<>());
+            }
+
+            if (!dups.contains(val)) shortest_longest.get(len).add(val);
+            dups.add(val);
+
+            row++;
+        }
+
+        return new Tuple<>(shortest_longest.get(min), shortest_longest.get(max));
     }
 
     public void print_csv() {
@@ -263,6 +332,4 @@ public class CSV_Analyzer {
             System.out.println(data);
         }
     }
-
-
 }
