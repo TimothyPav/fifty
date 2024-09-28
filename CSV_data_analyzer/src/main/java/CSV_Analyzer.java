@@ -32,14 +32,6 @@ public class CSV_Analyzer {
         num_cols = get_num_of_cols();
     }
 
-    private static void print(Object... objects) {
-        String result = Arrays.stream(objects)
-                .map(obj -> obj == null ? "null" : obj.toString())
-                .collect(Collectors.joining(" "));
-        System.out.println(result);
-    }
-
-
     private int get_num_of_cols() {
         int col = 1;
         int quotes = 0;

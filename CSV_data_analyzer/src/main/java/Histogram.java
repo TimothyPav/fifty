@@ -20,7 +20,7 @@ public class Histogram {
        this.chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
    }
 
-   public void add_series(String name, List<String> categories, List<Integer> values) {
+   public void add_series(String name, List<String> categories, List<Double> values) {
        this.chart.addSeries(name, categories, values);
    }
 

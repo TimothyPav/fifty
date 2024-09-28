@@ -20,6 +20,12 @@
             <artifactId>xchart</artifactId>
             <version>3.8.8</version>
         </dependency>
+
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>4.7.5</version>
+        </dependency>
     </dependencies>
 
 
