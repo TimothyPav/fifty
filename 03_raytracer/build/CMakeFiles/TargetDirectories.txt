@@ -1,0 +1,3 @@
+/home/tim/projects/fifty/03_raytracer/build/CMakeFiles/raytracer.dir
+/home/tim/projects/fifty/03_raytracer/build/CMakeFiles/edit_cache.dir
+/home/tim/projects/fifty/03_raytracer/build/CMakeFiles/rebuild_cache.dir
