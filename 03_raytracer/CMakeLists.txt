@@ -17,6 +17,7 @@ add_executable(raytracer
   src/Vector3D.cpp
   src/Ray.cpp
   src/Sphere.cpp
+  src/Camera.cpp
 )
 
 # Optional: enable optimization for release builds

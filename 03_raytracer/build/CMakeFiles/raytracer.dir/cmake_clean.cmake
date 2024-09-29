@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/raytracer.dir/src/Camera.cpp.o"
+  "CMakeFiles/raytracer.dir/src/Camera.cpp.o.d"
   "CMakeFiles/raytracer.dir/src/Ray.cpp.o"
   "CMakeFiles/raytracer.dir/src/Ray.cpp.o.d"
   "CMakeFiles/raytracer.dir/src/Sphere.cpp.o"

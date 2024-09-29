@@ -47,7 +47,5 @@ double Vector3D::length() const {
 }
 
 void Vector3D::display_vector() const {
-    std::cout << "x: " << this->x << std::endl;
-    std::cout << "y: " << this->y << std::endl;
-    std::cout << "z: " << this->z << std::endl;
+    std::cout << "(" << this->x << "," << this->y << "," << this->z << ")" << std::endl;
 }
