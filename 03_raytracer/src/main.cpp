@@ -23,20 +23,21 @@ void write_image(int width, int height, Color* buffer) {
 }
 
 int main() {
-    const int image_width = 400;
-    const int image_height = 300;
+    int image_width = 640;
+    int image_height = 360;
 
     Color* buffer = new Color[image_width * image_height];
-    // Define camera parameters
-    Vector3D camera_position(0, 0, 0); // Camera at the origin
-    Vector3D camera_direction(0, 0, -1); // Looking down the negative z-axis
-    double fov = M_PI / 4; // 45 degrees field of view
-    double aspect_ratio = 16.0 / 9.0; // Example aspect ratio
-    double near_plane = 1.0; // Distance to near clipping plane
-
-    // Create the camera
-    Sphere sphere(Vector3D(0, 0, -5), 1);
+    Vector3D camera_position(0, 0, 0);
+    Vector3D camera_direction(0, 0, -1);
+    double fov = M_PI / 4;
+    double aspect_ratio = 16.0 / 9.0;
+    double near_plane = 1.0;
+    
     Camera camera(camera_position, camera_direction, fov, aspect_ratio, near_plane);
+    
+    // Create a larger sphere closer to the camera
+    Sphere sphere(Vector3D(0, 0, -3), 1);
+    
 
     for (int y = 0; y < image_height; ++y) {
         for (int x = 0; x < image_width; ++x) {
@@ -46,7 +47,6 @@ int main() {
 
             // Get a ray from the camera through the pixel (x, y)
             Ray ray = camera.get_ray(u, v);
-            ray.get_origin().display_vector();
 
             // Check for intersection with the sphere
             double t;
