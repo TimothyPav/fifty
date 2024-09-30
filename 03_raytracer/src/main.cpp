@@ -1,70 +1,76 @@
 #include <iostream>
-#include <FL/math.h>
-#include <fstream>
 
-#include "Vector3D.hpp"
-#include "Ray.hpp"
-#include "Sphere.hpp"
-#include "Camera.hpp"
+#include "Color.h"
+#include "Ray.h"
+#include "Vec3.h"
 
-// Simple RGB struct for pixel color
-struct Color {
-    int r, g, b;
-};
 
-// Function to write the image to a PPM file (simple image format)
-void write_image(int width, int height, Color* buffer) {
-    std::ofstream image_file("output.ppm");
-    image_file << "P3\n" << width << " " << height << "\n255\n";
-    for (int i = 0; i < width * height; ++i) {
-        image_file << buffer[i].r << " " << buffer[i].g << " " << buffer[i].b << "\n";
+bool hit_sphere(const point3& center, double radius, const Ray& r) {
+    Vec3 oc = center - r.origin();
+    auto a = dot(r.direction(), r.direction());
+    auto b = -2.0 * dot(r.direction(), oc);
+    auto c = dot(oc, oc) - radius*radius;
+    auto discriminant = b*b - 4*a*c;
+    return (discriminant >= 0);
+
+}
+
+color ray_color(const Ray &r) {
+    if (hit_sphere(point3(0,0,-1), 0.5, r)){
+        return color(0,1,0);
     }
-    image_file.close();
+  // color vector
+  Vec3 unit_direction = unit_vector(r.direction());
+  auto a = 0.5*(unit_direction.y() + 1.0);
+  return (1.0-a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
 }
 
 int main() {
-    int image_width = 640;
-    int image_height = 360;
+  // image dimensions
+  double aspect_ratio = 16.0 / 9.0;
 
-    Color* buffer = new Color[image_width * image_height];
-    Vector3D camera_position(0, 0, 0);
-    Vector3D camera_direction(0, 0, -1);
-    double fov = M_PI / 4;
-    double aspect_ratio = 16.0 / 9.0;
-    double near_plane = 1.0;
-    
-    Camera camera(camera_position, camera_direction, fov, aspect_ratio, near_plane);
-    
-    // Create a larger sphere closer to the camera
-    Sphere sphere(Vector3D(0, 0, -3), 1);
-    
+  int image_width = 400;
+  int image_height = int(image_width / aspect_ratio);
+  image_height = (image_height < 1) ? 1 : image_height;
 
-    for (int y = 0; y < image_height; ++y) {
-        for (int x = 0; x < image_width; ++x) {
+  // camera
+  auto focal_length = 1.0;
+  auto viewport_height = 2.0;
+  auto viewport_width = viewport_height * (double(image_width) / image_height);
+  auto camera_center = point3(0, 0, 0);
 
-            double u = (x + 0.5) / image_width; // Center of the pixel
-            double v = (y + 0.5) / image_height;
+  // calculate vectors across the horizontal viewport and vertical viewport
+  // EDGES
+  auto viewport_u = Vec3(viewport_width, 0, 0);
+  auto viewport_v = Vec3(0, -viewport_height, 0);
 
-            // Get a ray from the camera through the pixel (x, y)
-            Ray ray = camera.get_ray(u, v);
+  // calculate horizontal and vertical deltas for each pixel. Does the math on
+  // how much each vector must move to move on to the next pixel
+  auto pixel_delta_u = viewport_u / image_width;
+  auto pixel_delta_v = viewport_v / image_height;
 
-            // Check for intersection with the sphere
-            double t;
-            if (sphere.intersect(ray, t)) {
-                std::cout << "Intersected\n";
-                // If it hits the sphere, color it red
-                buffer[y * image_width + x] = {255, 0, 0}; // Red
-            } else {
-                // Otherwise, color it blue for background
-                buffer[y * image_width + x] = {0, 0, 255}; // Blue
-            }
-        }
+  // calculate top left pixel
+  auto viewport_upper_left =
+      camera_center - Vec3(0, 0, focal_length) - viewport_u / 2 - viewport_v / 2;
+  auto pixel00_loc =
+      viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
+
+  std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+
+  for (int j = 0; j < image_height; j++) {
+    std::clog << "\rScanlines remaining: " << (image_height - j) << ' '
+              << std::flush;
+    for (int i = 0; i < image_width; i++) {
+      auto pixel_center =
+          pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
+      auto ray_direction = pixel_center - camera_center;
+      Ray r(camera_center, ray_direction);
+
+      // A vector because thats how we represent the color
+      color pixel_color = ray_color(r);
+
+      write_color(std::cout, pixel_color);
     }
-
-    // Write the image to a file
-    write_image(image_width, image_height, buffer);
-    std::cout << "COMPLETED\n";
-
-    delete[] buffer;
-    return 0;
+  }
+  std::clog << "\rDone.                 \n";
 }

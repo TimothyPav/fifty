@@ -4,29 +4,5 @@
   "command": "/usr/bin/c++  -I/home/tim/projects/fifty/03_raytracer/include -std=gnu++17 -o CMakeFiles/raytracer.dir/src/main.cpp.o -c /home/tim/projects/fifty/03_raytracer/src/main.cpp",
   "file": "/home/tim/projects/fifty/03_raytracer/src/main.cpp",
   "output": "CMakeFiles/raytracer.dir/src/main.cpp.o"
-},
-{
-  "directory": "/home/tim/projects/fifty/03_raytracer/build",
-  "command": "/usr/bin/c++  -I/home/tim/projects/fifty/03_raytracer/include -std=gnu++17 -o CMakeFiles/raytracer.dir/src/Vector3D.cpp.o -c /home/tim/projects/fifty/03_raytracer/src/Vector3D.cpp",
-  "file": "/home/tim/projects/fifty/03_raytracer/src/Vector3D.cpp",
-  "output": "CMakeFiles/raytracer.dir/src/Vector3D.cpp.o"
-},
-{
-  "directory": "/home/tim/projects/fifty/03_raytracer/build",
-  "command": "/usr/bin/c++  -I/home/tim/projects/fifty/03_raytracer/include -std=gnu++17 -o CMakeFiles/raytracer.dir/src/Ray.cpp.o -c /home/tim/projects/fifty/03_raytracer/src/Ray.cpp",
-  "file": "/home/tim/projects/fifty/03_raytracer/src/Ray.cpp",
-  "output": "CMakeFiles/raytracer.dir/src/Ray.cpp.o"
-},
-{
-  "directory": "/home/tim/projects/fifty/03_raytracer/build",
-  "command": "/usr/bin/c++  -I/home/tim/projects/fifty/03_raytracer/include -std=gnu++17 -o CMakeFiles/raytracer.dir/src/Sphere.cpp.o -c /home/tim/projects/fifty/03_raytracer/src/Sphere.cpp",
-  "file": "/home/tim/projects/fifty/03_raytracer/src/Sphere.cpp",
-  "output": "CMakeFiles/raytracer.dir/src/Sphere.cpp.o"
-},
-{
-  "directory": "/home/tim/projects/fifty/03_raytracer/build",
-  "command": "/usr/bin/c++  -I/home/tim/projects/fifty/03_raytracer/include -std=gnu++17 -o CMakeFiles/raytracer.dir/src/Camera.cpp.o -c /home/tim/projects/fifty/03_raytracer/src/Camera.cpp",
-  "file": "/home/tim/projects/fifty/03_raytracer/src/Camera.cpp",
-  "output": "CMakeFiles/raytracer.dir/src/Camera.cpp.o"
 }
 ]

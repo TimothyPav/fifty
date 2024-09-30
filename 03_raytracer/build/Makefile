@@ -129,102 +129,6 @@ raytracer/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/build
 .PHONY : raytracer/fast
 
-src/Camera.o: src/Camera.cpp.o
-.PHONY : src/Camera.o
-
-# target to build an object file
-src/Camera.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Camera.cpp.o
-.PHONY : src/Camera.cpp.o
-
-src/Camera.i: src/Camera.cpp.i
-.PHONY : src/Camera.i
-
-# target to preprocess a source file
-src/Camera.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Camera.cpp.i
-.PHONY : src/Camera.cpp.i
-
-src/Camera.s: src/Camera.cpp.s
-.PHONY : src/Camera.s
-
-# target to generate assembly for a file
-src/Camera.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Camera.cpp.s
-.PHONY : src/Camera.cpp.s
-
-src/Ray.o: src/Ray.cpp.o
-.PHONY : src/Ray.o
-
-# target to build an object file
-src/Ray.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Ray.cpp.o
-.PHONY : src/Ray.cpp.o
-
-src/Ray.i: src/Ray.cpp.i
-.PHONY : src/Ray.i
-
-# target to preprocess a source file
-src/Ray.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Ray.cpp.i
-.PHONY : src/Ray.cpp.i
-
-src/Ray.s: src/Ray.cpp.s
-.PHONY : src/Ray.s
-
-# target to generate assembly for a file
-src/Ray.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Ray.cpp.s
-.PHONY : src/Ray.cpp.s
-
-src/Sphere.o: src/Sphere.cpp.o
-.PHONY : src/Sphere.o
-
-# target to build an object file
-src/Sphere.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Sphere.cpp.o
-.PHONY : src/Sphere.cpp.o
-
-src/Sphere.i: src/Sphere.cpp.i
-.PHONY : src/Sphere.i
-
-# target to preprocess a source file
-src/Sphere.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Sphere.cpp.i
-.PHONY : src/Sphere.cpp.i
-
-src/Sphere.s: src/Sphere.cpp.s
-.PHONY : src/Sphere.s
-
-# target to generate assembly for a file
-src/Sphere.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Sphere.cpp.s
-.PHONY : src/Sphere.cpp.s
-
-src/Vector3D.o: src/Vector3D.cpp.o
-.PHONY : src/Vector3D.o
-
-# target to build an object file
-src/Vector3D.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Vector3D.cpp.o
-.PHONY : src/Vector3D.cpp.o
-
-src/Vector3D.i: src/Vector3D.cpp.i
-.PHONY : src/Vector3D.i
-
-# target to preprocess a source file
-src/Vector3D.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Vector3D.cpp.i
-.PHONY : src/Vector3D.cpp.i
-
-src/Vector3D.s: src/Vector3D.cpp.s
-.PHONY : src/Vector3D.s
-
-# target to generate assembly for a file
-src/Vector3D.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/raytracer.dir/build.make CMakeFiles/raytracer.dir/src/Vector3D.cpp.s
-.PHONY : src/Vector3D.cpp.s
-
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -258,18 +162,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... raytracer"
-	@echo "... src/Camera.o"
-	@echo "... src/Camera.i"
-	@echo "... src/Camera.s"
-	@echo "... src/Ray.o"
-	@echo "... src/Ray.i"
-	@echo "... src/Ray.s"
-	@echo "... src/Sphere.o"
-	@echo "... src/Sphere.i"
-	@echo "... src/Sphere.s"
-	@echo "... src/Vector3D.o"
-	@echo "... src/Vector3D.i"
-	@echo "... src/Vector3D.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

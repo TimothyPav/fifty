@@ -8,10 +8,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/tim/projects/fifty/03_raytracer/src/Camera.cpp" "CMakeFiles/raytracer.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/raytracer.dir/src/Camera.cpp.o.d"
-  "/home/tim/projects/fifty/03_raytracer/src/Ray.cpp" "CMakeFiles/raytracer.dir/src/Ray.cpp.o" "gcc" "CMakeFiles/raytracer.dir/src/Ray.cpp.o.d"
-  "/home/tim/projects/fifty/03_raytracer/src/Sphere.cpp" "CMakeFiles/raytracer.dir/src/Sphere.cpp.o" "gcc" "CMakeFiles/raytracer.dir/src/Sphere.cpp.o.d"
-  "/home/tim/projects/fifty/03_raytracer/src/Vector3D.cpp" "CMakeFiles/raytracer.dir/src/Vector3D.cpp.o" "gcc" "CMakeFiles/raytracer.dir/src/Vector3D.cpp.o.d"
   "/home/tim/projects/fifty/03_raytracer/src/main.cpp" "CMakeFiles/raytracer.dir/src/main.cpp.o" "gcc" "CMakeFiles/raytracer.dir/src/main.cpp.o.d"
   )
 

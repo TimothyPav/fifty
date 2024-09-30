@@ -14,10 +14,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # Add the executable
 add_executable(raytracer 
   src/main.cpp
-  src/Vector3D.cpp
-  src/Ray.cpp
-  src/Sphere.cpp
-  src/Camera.cpp
+
 )
 
 # Optional: enable optimization for release builds

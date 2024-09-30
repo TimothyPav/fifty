@@ -11,7 +11,7 @@ class Sphere {
 
         Sphere(const Vector3D&, double radius);
 
-        bool intersect(const Ray& ray, double& t);
+        bool intersect(const Ray& ray, double& t, Vector3D& hit_normal);
 };
 
 #endif

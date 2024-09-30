@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/raytracer.dir/src/main.cpp.o CMakeFiles/raytracer.dir/src/Vector3D.cpp.o CMakeFiles/raytracer.dir/src/Ray.cpp.o CMakeFiles/raytracer.dir/src/Sphere.cpp.o CMakeFiles/raytracer.dir/src/Camera.cpp.o -o raytracer 
+/usr/bin/c++ CMakeFiles/raytracer.dir/src/main.cpp.o -o raytracer 

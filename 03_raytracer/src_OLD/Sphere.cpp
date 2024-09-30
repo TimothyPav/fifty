@@ -4,7 +4,7 @@
 
 Sphere::Sphere(const Vector3D& center, double radius) : center(center), radius(radius) {}
 
-bool Sphere::intersect(const Ray& ray, double& t){
+bool Sphere::intersect(const Ray& ray, double& t, Vector3D& hit_normal){
     Vector3D vecL = center - ray.get_origin();
     double tc = vecL.dot_product(ray.get_direction());
 
@@ -22,6 +22,10 @@ bool Sphere::intersect(const Ray& ray, double& t){
     if (t1 > 0.0) t = t1;
     else if (t2 > 0.0) t = t2;
     else return false;
+
+    Vector3D hit_point = ray.get_origin() + ray.get_direction() * t;
+    hit_normal = (hit_point - center).normalize();
+    // hit_normal.display_vector();
 
     return true;
 }

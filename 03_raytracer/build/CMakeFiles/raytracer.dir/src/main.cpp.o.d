@@ -149,8 +149,10 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/locale_facets.tcc \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
- /usr/include/c++/13/bits/istream.tcc /usr/include/FL/math.h \
- /usr/include/c++/13/math.h /usr/include/c++/13/cmath /usr/include/math.h \
+ /usr/include/c++/13/bits/istream.tcc \
+ /home/tim/projects/fifty/03_raytracer/include/Color.h \
+ /home/tim/projects/fifty/03_raytracer/include/Vec3.h \
+ /usr/include/c++/13/cmath /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
@@ -172,14 +174,6 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: \
  /usr/include/c++/13/tr1/modified_bessel_func.tcc \
  /usr/include/c++/13/tr1/poly_hermite.tcc \
  /usr/include/c++/13/tr1/poly_laguerre.tcc \
- /usr/include/c++/13/tr1/riemann_zeta.tcc /usr/include/c++/13/fstream \
- /usr/include/c++/13/bits/codecvt.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
- /usr/include/c++/13/bits/fstream.tcc \
- /home/tim/projects/fifty/03_raytracer/include/Vector3D.hpp \
- /home/tim/projects/fifty/03_raytracer/include/Ray.hpp \
- /home/tim/projects/fifty/03_raytracer/include/Vector3D.hpp \
- /home/tim/projects/fifty/03_raytracer/include/Sphere.hpp \
- /home/tim/projects/fifty/03_raytracer/include/Ray.hpp \
- /home/tim/projects/fifty/03_raytracer/include/Camera.hpp
+ /usr/include/c++/13/tr1/riemann_zeta.tcc \
+ /home/tim/projects/fifty/03_raytracer/include/Ray.h \
+ /home/tim/projects/fifty/03_raytracer/include/Vec3.h
