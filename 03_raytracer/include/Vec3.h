@@ -1,8 +1,8 @@
 #ifndef VEC_H
 #define VEC_H
 
-#include <cmath>
 #include <iostream>
+#include <cmath>
 
 class Vec3 {
 public:
@@ -34,7 +34,7 @@ public:
 
   Vec3 &operator/=(double t) { return *this *= 1 / t; }
 
-  double length() const { return sqrt(length_squared()); }
+  double length() const { return std::sqrt(length_squared()); }
 
   double length_squared() const {
     return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
