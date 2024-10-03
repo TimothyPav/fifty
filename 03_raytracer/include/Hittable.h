@@ -3,10 +3,13 @@
 
 #include "Utils.h"
 
+class Material;
+
 class Hit_record {
     public:
         point3 p;
         Vec3 normal;
+        shared_ptr<Material> mat;
         double t;
         bool front_face;
 
