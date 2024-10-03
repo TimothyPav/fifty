@@ -3,6 +3,7 @@
 
 CMakeFiles/raytracer.dir/src/main.cpp.o
  /home/tim/projects/fifty/03_raytracer/src/main.cpp
+ /home/tim/projects/fifty/03_raytracer/include/Camera.h
  /home/tim/projects/fifty/03_raytracer/include/Color.h
  /home/tim/projects/fifty/03_raytracer/include/Hittable.h
  /home/tim/projects/fifty/03_raytracer/include/Hittable_List.h

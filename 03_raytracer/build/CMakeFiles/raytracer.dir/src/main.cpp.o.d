@@ -1,6 +1,8 @@
 CMakeFiles/raytracer.dir/src/main.cpp.o: \
  /home/tim/projects/fifty/03_raytracer/src/main.cpp \
  /usr/include/stdc-predef.h \
+ /home/tim/projects/fifty/03_raytracer/include/Camera.h \
+ /home/tim/projects/fifty/03_raytracer/include/Hittable.h \
  /home/tim/projects/fifty/03_raytracer/include/Utils.h \
  /usr/include/c++/13/cmath /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
@@ -194,12 +196,10 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: \
  /usr/include/c++/13/pstl/execution_defs.h \
  /home/tim/projects/fifty/03_raytracer/include/Color.h \
  /home/tim/projects/fifty/03_raytracer/include/Vec3.h \
+ /home/tim/projects/fifty/03_raytracer/include/Interval.h \
+ /home/tim/projects/fifty/03_raytracer/include/Utils.h \
  /home/tim/projects/fifty/03_raytracer/include/Ray.h \
  /home/tim/projects/fifty/03_raytracer/include/Vec3.h \
- /home/tim/projects/fifty/03_raytracer/include/Interval.h \
- /home/tim/projects/fifty/03_raytracer/include/Camera.h \
- /home/tim/projects/fifty/03_raytracer/include/Utils.h \
- /home/tim/projects/fifty/03_raytracer/include/Hittable.h \
  /home/tim/projects/fifty/03_raytracer/include/Hittable_List.h \
  /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
