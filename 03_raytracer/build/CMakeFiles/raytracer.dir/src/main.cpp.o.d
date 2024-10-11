@@ -200,11 +200,11 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: \
  /home/tim/projects/fifty/03_raytracer/include/Utils.h \
  /home/tim/projects/fifty/03_raytracer/include/Ray.h \
  /home/tim/projects/fifty/03_raytracer/include/Vec3.h \
- /home/tim/projects/fifty/03_raytracer/include/Material.h \
  /home/tim/projects/fifty/03_raytracer/include/Hittable_List.h \
  /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc \
+ /home/tim/projects/fifty/03_raytracer/include/Material.h \
  /home/tim/projects/fifty/03_raytracer/include/Sphere.h \
  /home/tim/projects/fifty/03_raytracer/include/Hittable.h \
  /home/tim/projects/fifty/03_raytracer/include/Hittable_List.h \
