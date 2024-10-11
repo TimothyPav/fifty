@@ -8,6 +8,7 @@ CMakeFiles/raytracer.dir/src/main.cpp.o
  /home/tim/projects/fifty/03_raytracer/include/Hittable.h
  /home/tim/projects/fifty/03_raytracer/include/Hittable_List.h
  /home/tim/projects/fifty/03_raytracer/include/Interval.h
+ /home/tim/projects/fifty/03_raytracer/include/Material.h
  /home/tim/projects/fifty/03_raytracer/include/Ray.h
  /home/tim/projects/fifty/03_raytracer/include/Sphere.h
  /home/tim/projects/fifty/03_raytracer/include/Utils.h

@@ -7,6 +7,7 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: /home/tim/projects/fifty/03_raytracer/s
   /home/tim/projects/fifty/03_raytracer/include/Hittable.h \
   /home/tim/projects/fifty/03_raytracer/include/Hittable_List.h \
   /home/tim/projects/fifty/03_raytracer/include/Interval.h \
+  /home/tim/projects/fifty/03_raytracer/include/Material.h \
   /home/tim/projects/fifty/03_raytracer/include/Ray.h \
   /home/tim/projects/fifty/03_raytracer/include/Sphere.h \
   /home/tim/projects/fifty/03_raytracer/include/Utils.h \
@@ -376,6 +377,12 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: /home/tim/projects/fifty/03_raytracer/s
 
 /usr/include/c++/13/tr1/legendre_function.tcc:
 
+/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
+
+/usr/include/c++/13/type_traits:
+
+/usr/include/c++/13/tr1/hypergeometric.tcc:
+
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/c++/13/bits/refwrap.h:
@@ -412,11 +419,7 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: /home/tim/projects/fifty/03_raytracer/s
 
 /usr/include/c++/13/bits/ios_base.h:
 
-/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
-
-/usr/include/c++/13/type_traits:
-
-/usr/include/c++/13/tr1/hypergeometric.tcc:
+/home/tim/projects/fifty/03_raytracer/include/Material.h:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
@@ -464,6 +467,10 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: /home/tim/projects/fifty/03_raytracer/s
 
 /usr/include/c++/13/bits/cpp_type_traits.h:
 
+/usr/include/ctype.h:
+
+/home/tim/projects/fifty/03_raytracer/src/main.cpp:
+
 /usr/include/c++/13/cwctype:
 
 /usr/include/c++/13/bits/predefined_ops.h:
@@ -480,6 +487,10 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: /home/tim/projects/fifty/03_raytracer/s
 
 /usr/include/c++/13/bits/specfun.h:
 
+/usr/include/x86_64-linux-gnu/bits/time64.h:
+
+/usr/include/c++/13/bits/basic_ios.h:
+
 /home/tim/projects/fifty/03_raytracer/include/Interval.h:
 
 /usr/include/c++/13/bits/locale_facets.tcc:
@@ -495,6 +506,10 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: /home/tim/projects/fifty/03_raytracer/s
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
 /usr/include/c++/13/bits/shared_ptr.h:
+
+/usr/include/c++/13/bits/concept_check.h:
+
+/usr/include/c++/13/bits/alloc_traits.h:
 
 /usr/include/c++/13/new:
 
@@ -516,14 +531,6 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: /home/tim/projects/fifty/03_raytracer/s
 
 /usr/include/c++/13/bits/stringfwd.h:
 
-/usr/include/ctype.h:
-
-/home/tim/projects/fifty/03_raytracer/src/main.cpp:
-
-/usr/include/c++/13/bits/alloc_traits.h:
-
-/usr/include/c++/13/bits/concept_check.h:
-
 /usr/include/c++/13/backward/auto_ptr.h:
 
 /usr/include/c++/13/bits/basic_string.tcc:
@@ -536,6 +543,12 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: /home/tim/projects/fifty/03_raytracer/s
 
 /home/tim/projects/fifty/03_raytracer/include/Camera.h:
 
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/locale.h:
+
+/usr/include/c++/13/ext/aligned_buffer.h:
+
 /usr/include/c++/13/bits/locale_facets.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
@@ -543,16 +556,6 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: /home/tim/projects/fifty/03_raytracer/s
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
 /usr/include/c++/13/bits/atomic_lockfree_defines.h:
-
-/usr/include/x86_64-linux-gnu/bits/time64.h:
-
-/usr/include/c++/13/bits/basic_ios.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
-
-/usr/include/locale.h:
-
-/usr/include/c++/13/ext/aligned_buffer.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
 
@@ -630,9 +633,9 @@ CMakeFiles/raytracer.dir/src/main.cpp.o: /home/tim/projects/fifty/03_raytracer/s
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
-/usr/include/c++/13/bits/new_allocator.h:
-
 /usr/include/c++/13/bits/atomic_base.h:
+
+/usr/include/c++/13/bits/new_allocator.h:
 
 /usr/include/c++/13/bits/uses_allocator_args.h:
 

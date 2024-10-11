@@ -2,6 +2,7 @@
 #define CAMERA_h
 
 #include "Hittable.h"
+#include "Material.h"
 #include "Hittable_List.h"
 #include "Sphere.h"
 #include "Utils.h"
@@ -52,8 +53,6 @@ private:
 
     // world
     Hittable_List world;
-    world.add(make_shared<Sphere>(point3(0, 0, -1), 0.5));
-    world.add(make_shared<Sphere>(point3(0, -100.5, -1), 100));
 
     // camera
     auto focal_length = 1.0;
@@ -105,9 +104,11 @@ private:
     Hit_record rec;
 
     if (world.hit(r, Interval(0.001, infinity), rec)) {
-      // Vec3 direction = random_on_hempisphere(rec.normal); UNIFORM DISTRIBUTION
-      Vec3 direction = rec.normal + random_unit_vector();
-      return 0.7 * ray_color(Ray(rec.p, direction),depth-1, world);
+        Ray scattered;
+        color attenuation;
+        if(rec.mat->scatter(r, rec, attenuation, scattered))
+            return attenuation * ray_color(scattered, depth-1, world);
+        return color(0,0,0);
     }
 
     Vec3 unit_direction = unit_vector(r.direction());
