@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/tim/projects/fifty/04_game_of_life/build",
+  "command": "/usr/bin/c++  -I/home/tim/projects/fifty/04_game_of_life/include -isystem /usr/include/SDL2 -std=gnu++17 -o CMakeFiles/game_of_life.dir/src/main.cpp.o -c /home/tim/projects/fifty/04_game_of_life/src/main.cpp",
+  "file": "/home/tim/projects/fifty/04_game_of_life/src/main.cpp",
+  "output": "CMakeFiles/game_of_life.dir/src/main.cpp.o"
+}
+]

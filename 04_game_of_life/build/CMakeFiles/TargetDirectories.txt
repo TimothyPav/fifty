@@ -1,0 +1,3 @@
+/home/tim/projects/fifty/04_game_of_life/build/CMakeFiles/game_of_life.dir
+/home/tim/projects/fifty/04_game_of_life/build/CMakeFiles/edit_cache.dir
+/home/tim/projects/fifty/04_game_of_life/build/CMakeFiles/rebuild_cache.dir
