@@ -110,6 +110,7 @@ game_of_life: CMakeFiles/game_of_life.dir/src/Button.cpp.o
 game_of_life: CMakeFiles/game_of_life.dir/build.make
 game_of_life: /usr/lib/x86_64-linux-gnu/libSDL2.so
 game_of_life: /usr/lib/x86_64-linux-gnu/libSDL2_image.so
+game_of_life: /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so
 game_of_life: CMakeFiles/game_of_life.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/tim/projects/fifty/04_game_of_life/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable game_of_life"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/game_of_life.dir/link.txt --verbose=$(VERBOSE)

@@ -1,5 +1,4 @@
 #include "Button.h"
-#include <iostream>
 
 Button::Button(SDL_Renderer* r) {
     static SDL_Texture* t = IMG_LoadTexture(r, "../images/button_sheet.png");
@@ -18,7 +17,6 @@ void Button::update(SDL_MouseButtonEvent b){
         SDL_Point click_point = {b.x, b.y};
         if (SDL_PointInRect(&click_point, &drect)){
             isSelected = true;
-            std::cout << "Button Clicked\n";
         } else {
             isSelected = false;
         }

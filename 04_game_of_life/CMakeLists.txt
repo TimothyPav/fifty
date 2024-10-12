@@ -9,6 +9,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
 add_executable(game_of_life
     src/main.cpp
@@ -18,11 +19,13 @@ add_executable(game_of_life
 target_include_directories(game_of_life PRIVATE 
     ${SDL2_INCLUDE_DIRS}
     ${SDL2_IMAGE_INCLUDE_DIRS}
+    ${SDL2_TTF_INCLUDE_DIRS}
 )
 
 target_link_libraries(game_of_life PRIVATE 
     ${SDL2_LIBRARIES}
     SDL2_image::SDL2_image
+    SDL2_ttf::SDL2_ttf
 )
 
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
