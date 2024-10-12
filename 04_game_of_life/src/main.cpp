@@ -118,10 +118,6 @@ int main(int argc, char *argv[])
 
     // BUTTONS
     Button start_button(renderer);
-    start_button.srect.y = 0; 
-    start_button.drect.x = 1027;
-    start_button.drect.y = 15;
-
     Button stop_button(renderer);
     Button reset_button(renderer);
     Button next_button(renderer);
@@ -137,9 +133,10 @@ int main(int argc, char *argv[])
     button_vector.push_back(minus_button);
 
     for(int i=0; i<button_vector.size(); i++){
-        Button curr_button  = button_vector[i];
-        curr_button.srect.y = 0;
+        Button& curr_button  = button_vector[i];
+        curr_button.srect.y = i*100;
         curr_button.drect.x = 1027;
+        std::cout << "Calc: " << 15+(i*100) << std::endl;
         curr_button.drect.y = 15 + (i*100);
     }
 
@@ -155,7 +152,12 @@ int main(int argc, char *argv[])
                     break;
                 case SDL_MOUSEBUTTONDOWN:
                     handle_mouse_event(game_state, e.button, game_start);
-                    start_button.update(e.button);
+                    for (int i=0; i<button_vector.size(); i++){
+                        Button& curr_button = button_vector[i];
+                        curr_button.update(e.button);
+                    }
+                    if (button_vector[0].isSelected)
+                        std::cout << "start button pressed\n";
                     break;
                 case SDL_KEYDOWN:
                     std::cout << "Key: " << e.key.keysym.sym << std::endl;
@@ -174,7 +176,11 @@ int main(int argc, char *argv[])
                 SDL_RenderCopy(renderer, game_state[x][y] ? clicked_texture : tile_texture, NULL, &tile[x][y]);
             }
         }
-        start_button.draw(renderer);
+        for (int i=0; i<button_vector.size(); i++){
+            Button& curr_button = button_vector[i];
+            // std::cout << "curr: " << curr_button.drect.x << ", " << curr_button.drect.y << std::endl;
+            curr_button.draw(renderer);
+        }
 
         // Display renderer to the screen
         SDL_RenderPresent(renderer);
