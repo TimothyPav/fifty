@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/tim/projects/fifty/04_game_of_life/src/Button.cpp" "CMakeFiles/game_of_life.dir/src/Button.cpp.o" "gcc" "CMakeFiles/game_of_life.dir/src/Button.cpp.o.d"
   "/home/tim/projects/fifty/04_game_of_life/src/main.cpp" "CMakeFiles/game_of_life.dir/src/main.cpp.o" "gcc" "CMakeFiles/game_of_life.dir/src/main.cpp.o.d"
   )
 

@@ -4,3 +4,5 @@ Speed Switch
 Rule selector
 Iteration counter
 Organize structure
+
+start, stop, next, reset, speed up, slow down, iteration counter

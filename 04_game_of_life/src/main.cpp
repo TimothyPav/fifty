@@ -10,6 +10,8 @@
 #include <ctime>
 #include <vector>
 
+#include "Button.h"
+
 void handle_mouse_event(std::vector<std::vector<bool>>& game_state, SDL_MouseButtonEvent b, bool game_start){
     if (b.button == SDL_BUTTON_LEFT && !game_start) {
         int32_t x = b.x / 32;
@@ -22,20 +24,20 @@ void handle_mouse_event(std::vector<std::vector<bool>>& game_state, SDL_MouseBut
 
 void handle_start_event(SDL_Keycode button, bool& game_start){
     if (!game_start && button == SDLK_SPACE){
-        std::cout << "space pressed\n";
         game_start = true;
+    } else {
+        game_start = false;
     }
 
 }
 
 int helper(int i, int j, std::vector<std::vector<bool>> state, int WIDTH, int HEIGHT){
     int adj = 0;
-    std::cout << "Hello\n";
     for (int x = i-1; x < i+2; x++){
         for (int y = j-1; y < j+2; y++){
-            std::cout << "x, y: " << x << ", " << y << std::endl;
-            std::cout << "i, j: " << i << ", " << j << std::endl;
-            std::cout << std::endl;
+            // std::cout << "x, y: " << x << ", " << y << std::endl;
+            // std::cout << "i, j: " << i << ", " << j << std::endl;
+            // std::cout << std::endl;
             if (x == i && y == j)
                 continue;
             else if (0 <= x && x < WIDTH && 0 <= y && y < HEIGHT && state[x][y] == true)
@@ -83,7 +85,7 @@ int main(int argc, char *argv[])
         std::cout << "Program starting...\n";
 
     // Request window to be created
-    window = SDL_CreateWindow("Game of Life", 20, 20, 640, 480, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Game of Life", 20, 20, 1280, 736, SDL_WINDOW_SHOWN);
 
     SDL_Renderer* renderer = nullptr;
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -100,8 +102,8 @@ int main(int argc, char *argv[])
     SDL_FreeSurface(tile_map_surface);
     SDL_FreeSurface(clicked_surface);
 
-    const int GRID_WIDTH = 20;
-    const int GRID_HEIGHT = 15;
+    const int GRID_WIDTH = 32;
+    const int GRID_HEIGHT = 23;
     std::vector<std::vector<bool>> game_state(GRID_WIDTH, std::vector<bool>(GRID_HEIGHT, false));
 
     SDL_Rect tile[GRID_WIDTH][GRID_HEIGHT];
@@ -114,6 +116,32 @@ int main(int argc, char *argv[])
         }
     }
 
+    // BUTTONS
+    Button start_button(renderer);
+    start_button.srect.y = 0; 
+    start_button.drect.x = 1027;
+    start_button.drect.y = 15;
+
+    Button stop_button(renderer);
+    Button reset_button(renderer);
+    Button next_button(renderer);
+    Button plus_button(renderer);
+    Button minus_button(renderer);
+    
+    std::vector<Button> button_vector;
+    button_vector.push_back(start_button);
+    button_vector.push_back(stop_button);
+    button_vector.push_back(reset_button);
+    button_vector.push_back(next_button);
+    button_vector.push_back(plus_button);
+    button_vector.push_back(minus_button);
+
+    for(int i=0; i<button_vector.size(); i++){
+        Button curr_button  = button_vector[i];
+        curr_button.srect.y = 0;
+        curr_button.drect.x = 1027;
+        curr_button.drect.y = 15 + (i*100);
+    }
 
     bool game_is_running = true;
     bool game_start = false;
@@ -127,6 +155,7 @@ int main(int argc, char *argv[])
                     break;
                 case SDL_MOUSEBUTTONDOWN:
                     handle_mouse_event(game_state, e.button, game_start);
+                    start_button.update(e.button);
                     break;
                 case SDL_KEYDOWN:
                     std::cout << "Key: " << e.key.keysym.sym << std::endl;
@@ -145,12 +174,13 @@ int main(int argc, char *argv[])
                 SDL_RenderCopy(renderer, game_state[x][y] ? clicked_texture : tile_texture, NULL, &tile[x][y]);
             }
         }
+        start_button.draw(renderer);
 
         // Display renderer to the screen
         SDL_RenderPresent(renderer);
 
         // Slow down simulation
-        SDL_Delay(20);
+        // SDL_Delay(1);
     }
     
     

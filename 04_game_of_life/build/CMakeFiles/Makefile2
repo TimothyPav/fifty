@@ -81,12 +81,12 @@ clean: CMakeFiles/game_of_life.dir/clean
 CMakeFiles/game_of_life.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/game_of_life.dir/build.make CMakeFiles/game_of_life.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/game_of_life.dir/build.make CMakeFiles/game_of_life.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/tim/projects/fifty/04_game_of_life/build/CMakeFiles --progress-num=1,2 "Built target game_of_life"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/tim/projects/fifty/04_game_of_life/build/CMakeFiles --progress-num=1,2,3 "Built target game_of_life"
 .PHONY : CMakeFiles/game_of_life.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/game_of_life.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tim/projects/fifty/04_game_of_life/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tim/projects/fifty/04_game_of_life/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/game_of_life.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/tim/projects/fifty/04_game_of_life/build/CMakeFiles 0
 .PHONY : CMakeFiles/game_of_life.dir/rule

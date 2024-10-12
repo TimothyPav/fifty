@@ -12,6 +12,7 @@ find_package(SDL2_image REQUIRED)
 
 add_executable(game_of_life
     src/main.cpp
+    src/Button.cpp
 )
 
 target_include_directories(game_of_life PRIVATE 
