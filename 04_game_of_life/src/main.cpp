@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
   }
   // Request window to be created
   window =
-      SDL_CreateWindow("Game of Life", 20, 20, 1280, 736, SDL_WINDOW_SHOWN);
+      SDL_CreateWindow("Game of Life", 20, 20, 1280, 900, SDL_WINDOW_SHOWN);
 
   SDL_Renderer *renderer = nullptr;
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);

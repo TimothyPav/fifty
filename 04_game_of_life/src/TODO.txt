@@ -1,8 +1,9 @@
 Menu
 Better GUI
-Speed Switch
 Rule selector
-Iteration counter
+    - Survival conditions
+    - Birth conditions
+    - Neighbor grid size
+    - Neighborhood shape
 Organize structure
 
-start, stop, next, reset, speed up, slow down, iteration counter

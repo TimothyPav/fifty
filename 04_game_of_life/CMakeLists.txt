@@ -14,6 +14,7 @@ find_package(SDL2_ttf REQUIRED)
 add_executable(game_of_life
     src/main.cpp
     src/Button.cpp
+    src/Rules.cpp
 )
 
 target_include_directories(game_of_life PRIVATE 
