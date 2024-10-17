@@ -153,6 +153,30 @@ src/Button.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/game_of_life.dir/build.make CMakeFiles/game_of_life.dir/src/Button.cpp.s
 .PHONY : src/Button.cpp.s
 
+src/Rules.o: src/Rules.cpp.o
+.PHONY : src/Rules.o
+
+# target to build an object file
+src/Rules.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game_of_life.dir/build.make CMakeFiles/game_of_life.dir/src/Rules.cpp.o
+.PHONY : src/Rules.cpp.o
+
+src/Rules.i: src/Rules.cpp.i
+.PHONY : src/Rules.i
+
+# target to preprocess a source file
+src/Rules.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game_of_life.dir/build.make CMakeFiles/game_of_life.dir/src/Rules.cpp.i
+.PHONY : src/Rules.cpp.i
+
+src/Rules.s: src/Rules.cpp.s
+.PHONY : src/Rules.s
+
+# target to generate assembly for a file
+src/Rules.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game_of_life.dir/build.make CMakeFiles/game_of_life.dir/src/Rules.cpp.s
+.PHONY : src/Rules.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -189,6 +213,9 @@ help:
 	@echo "... src/Button.o"
 	@echo "... src/Button.i"
 	@echo "... src/Button.s"
+	@echo "... src/Rules.o"
+	@echo "... src/Rules.i"
+	@echo "... src/Rules.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

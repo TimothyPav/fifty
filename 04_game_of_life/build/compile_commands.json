@@ -10,5 +10,11 @@
   "command": "/usr/bin/c++  -I/home/tim/projects/fifty/04_game_of_life/include -isystem /usr/include/SDL2 -std=gnu++17 -o CMakeFiles/game_of_life.dir/src/Button.cpp.o -c /home/tim/projects/fifty/04_game_of_life/src/Button.cpp",
   "file": "/home/tim/projects/fifty/04_game_of_life/src/Button.cpp",
   "output": "CMakeFiles/game_of_life.dir/src/Button.cpp.o"
+},
+{
+  "directory": "/home/tim/projects/fifty/04_game_of_life/build",
+  "command": "/usr/bin/c++  -I/home/tim/projects/fifty/04_game_of_life/include -isystem /usr/include/SDL2 -std=gnu++17 -o CMakeFiles/game_of_life.dir/src/Rules.cpp.o -c /home/tim/projects/fifty/04_game_of_life/src/Rules.cpp",
+  "file": "/home/tim/projects/fifty/04_game_of_life/src/Rules.cpp",
+  "output": "CMakeFiles/game_of_life.dir/src/Rules.cpp.o"
 }
 ]

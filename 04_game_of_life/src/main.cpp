@@ -9,9 +9,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <string>
+#include <type_traits>
 #include <vector>
 
 #include "Button.h"
+#include "Rules.h"
 
 void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text,
                 int x, int y, SDL_Color color) {
@@ -103,7 +106,58 @@ void iterate_round(std::vector<std::vector<bool>> &game_state,
   }
 }
 
+NeighborhoodShape string_to_shape(const std::string &input) {
+  if (input == "All8")
+    return NeighborhoodShape::All8;
+  if (input == "Plus")
+    return NeighborhoodShape::Plus;
+  if (input == "X")
+    return NeighborhoodShape::X;
+  throw std::invalid_argument("Invalid input shape");
+}
+
 int main(int argc, char *argv[]) {
+  Rules rules = Rules();
+  if (argc == 1){
+      rules.set_pair({2,3});
+      rules.set_birth_condition(3);
+      rules.set_shape(NeighborhoodShape::All8);
+  }
+  else if (argc != 5) {
+    std::cout << "Need 0 or 4 arguments (min_survival_condition, "
+                 "max_survival_condition, birth_condition, shape)"
+              << std::endl;
+  } else {
+    for (int i = 1; i < argc; i++) {
+      if (i < argc - 1) {
+        char *end;
+        long val = std::strtol(argv[i], &end, 10);
+        if (*end == '\0') {
+          if (i == 2) {
+            long prev_val = std::strtol(argv[i-1], &end, 10);
+            rules.set_pair({prev_val, val});
+          }
+          if (i == 3)
+            rules.set_birth_condition(val);
+        } else {
+          std::cout
+              << "argument " << i << " must be a number\n";
+          exit(EXIT_FAILURE);
+        }
+      } else {
+        try {
+          NeighborhoodShape shape = string_to_shape(argv[i]);
+          rules.set_shape(shape);
+        } catch (const std::invalid_argument &e) {
+          std::cout
+              << "Shape not recognized... Avaialable Shapes: (All8, Plus, X)\n";
+          exit(EXIT_FAILURE);
+        }
+      }
+    }
+  }
+  rules.print();
+
   SDL_Window *window = nullptr;
 
   // Error handling

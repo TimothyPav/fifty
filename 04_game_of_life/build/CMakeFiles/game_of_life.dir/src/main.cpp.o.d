@@ -336,4 +336,6 @@ CMakeFiles/game_of_life.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc \
- /home/tim/projects/fifty/04_game_of_life/include/Button.h
+ /home/tim/projects/fifty/04_game_of_life/include/Button.h \
+ /home/tim/projects/fifty/04_game_of_life/include/Rules.h \
+ /usr/include/c++/13/utility /usr/include/c++/13/bits/stl_relops.h
