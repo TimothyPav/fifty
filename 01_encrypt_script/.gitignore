@@ -1,15 +1,41 @@
+# Virtual environment
+venv/
+env/
+lib/
+bin/
+include/
+*.cfg
+
 # Python cache files
 __pycache__/
 *.py[cod]
 
-# Virtual environment
-venv/
-env/
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
 # IDE files
 .vscode/
 .idea/
+*.iml
 
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
