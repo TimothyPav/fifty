@@ -17,5 +17,3 @@ add_executable(raytracer
 
 )
 
-# Optional: enable optimization for release builds
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
