@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/game_of_life.dir/src/main.cpp.o CMakeFiles/game_of_life.dir/src/Button.cpp.o CMakeFiles/game_of_life.dir/src/Rules.cpp.o -o game_of_life  /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2_image.so /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so 

@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/tim/projects/fifty/03_raytracer/build",
-  "command": "/usr/bin/c++  -I/home/tim/projects/fifty/03_raytracer/include -std=gnu++17 -o CMakeFiles/raytracer.dir/src/main.cpp.o -c /home/tim/projects/fifty/03_raytracer/src/main.cpp",
-  "file": "/home/tim/projects/fifty/03_raytracer/src/main.cpp",
-  "output": "CMakeFiles/raytracer.dir/src/main.cpp.o"
-}
-]
