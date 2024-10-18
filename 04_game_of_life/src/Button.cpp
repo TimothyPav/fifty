@@ -5,11 +5,11 @@ Button::Button(SDL_Renderer* r) {
     tex = t;
 
     srect.h = 100;
-    srect.w = 200;
+    srect.w = 100;
     srect.x = 0;
 
-    drect.h = 75;
-    drect.w = 250;
+    drect.h = 100;
+    drect.w = 100;
 }
 
 void Button::update(SDL_MouseButtonEvent b){

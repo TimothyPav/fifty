@@ -4,13 +4,13 @@
 #include <SDL2/SDL_ttf.h>
 
 #include <SDL_events.h>
+#include <cmath>
 #include <csignal>
 #include <cstdint>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
 #include <string>
-#include <type_traits>
 #include <vector>
 
 #include "Button.h"
@@ -43,8 +43,8 @@ void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text,
 void handle_mouse_event(std::vector<std::vector<bool>> &game_state,
                         SDL_MouseButtonEvent b, bool game_start) {
   if (b.button == SDL_BUTTON_LEFT && !game_start) {
-    int32_t x = b.x / 32;
-    int32_t y = b.y / 32;
+    int32_t x = b.x / 16;
+    int32_t y = b.y / 16;
     if (x >= 0 && x < game_state.size() && y >= 0 && y < game_state[0].size()) {
       game_state[x][y] = !game_state[x][y];
     }
@@ -60,18 +60,33 @@ void handle_start_event(SDL_Keycode button, bool &game_start) {
 }
 
 int helper(int i, int j, std::vector<std::vector<bool>> state, int WIDTH,
-           int HEIGHT) {
+           int HEIGHT, const Rules &rules) {
   int adj = 0;
   for (int x = i - 1; x < i + 2; x++) {
     for (int y = j - 1; y < j + 2; y++) {
-      // std::cout << "x, y: " << x << ", " << y << std::endl;
-      // std::cout << "i, j: " << i << ", " << j << std::endl;
-      // std::cout << std::endl;
       if (x == i && y == j)
         continue;
-      else if (0 <= x && x < WIDTH && 0 <= y && y < HEIGHT &&
-               state[x][y] == true)
+      // All8 ruleset
+      else if (rules.get_shape() == NeighborhoodShape::All8 && 0 <= x &&
+               x < WIDTH && 0 <= y && y < HEIGHT && state[x][y] == true){
         adj += 1;
+        // std::cout << "All8 ruleset adj: " << adj << '\n';
+      }
+
+      // X ruleset
+      else if (rules.get_shape() == NeighborhoodShape::X && 0 <= x &&
+               x < WIDTH && 0 <= y && y < HEIGHT && ((abs(x-i)) + (abs(y-j)) == 2) &&
+               state[x][y] == true){
+        adj += 1;
+      }
+
+      // Plus ruleset
+      else if (rules.get_shape() == NeighborhoodShape::Plus && 0 <= x &&
+               x < WIDTH && 0 <= y && y <= HEIGHT && ((abs(x-i)) + (abs(y-j)) == 1) &&
+               state[x][y] == true){
+        adj += 1;
+      }
+      // std::cout << "abs x + y = " << (abs(x-i)) + (abs(y-j)) << '\n';
     }
   }
   return adj;
@@ -79,8 +94,9 @@ int helper(int i, int j, std::vector<std::vector<bool>> state, int WIDTH,
 
 void iterate_round(std::vector<std::vector<bool>> &game_state,
                    std::vector<std::vector<bool>> copy_game_state,
-                   bool game_start, int WIDTH, int HEIGHT, int &counter) {
-  // RULES
+                   bool game_start, int WIDTH, int HEIGHT, int &counter,
+                   Rules &rules) {
+  // DEFAULT RULES
   // Birth: A dead cell becomes alive if it has exactly three live neighbors
   // Death by isolation: A live cell dies if it has one or fewer live neighbors
   // Death by overcrowding: A live cell dies if it has four or more live
@@ -91,13 +107,13 @@ void iterate_round(std::vector<std::vector<bool>> &game_state,
     for (int i = 0; i < WIDTH; i++) {
       for (int j = 0; j < HEIGHT; j++) {
         bool cell = copy_game_state[i][j];
-        int adj = helper(i, j, copy_game_state, WIDTH, HEIGHT);
+        int adj = helper(i, j, copy_game_state, WIDTH, HEIGHT, rules);
 
         if (cell == true) {
-          if (adj < 2 || adj > 3)
+          if (adj < rules.get_pair().first || adj > rules.get_pair().second)
             game_state[i][j] = false;
         } else {
-          if (adj == 3)
+          if (adj == rules.get_birth_condition())
             game_state[i][j] = true;
         }
       }
@@ -118,12 +134,11 @@ NeighborhoodShape string_to_shape(const std::string &input) {
 
 int main(int argc, char *argv[]) {
   Rules rules = Rules();
-  if (argc == 1){
-      rules.set_pair({2,3});
-      rules.set_birth_condition(3);
-      rules.set_shape(NeighborhoodShape::All8);
-  }
-  else if (argc != 5) {
+  if (argc == 1) {
+    rules.set_pair({2, 3});
+    rules.set_birth_condition(3);
+    rules.set_shape(NeighborhoodShape::All8);
+  } else if (argc != 5) {
     std::cout << "Need 0 or 4 arguments (min_survival_condition, "
                  "max_survival_condition, birth_condition, shape)"
               << std::endl;
@@ -134,14 +149,13 @@ int main(int argc, char *argv[]) {
         long val = std::strtol(argv[i], &end, 10);
         if (*end == '\0') {
           if (i == 2) {
-            long prev_val = std::strtol(argv[i-1], &end, 10);
+            long prev_val = std::strtol(argv[i - 1], &end, 10);
             rules.set_pair({prev_val, val});
           }
           if (i == 3)
             rules.set_birth_condition(val);
         } else {
-          std::cout
-              << "argument " << i << " must be a number\n";
+          std::cout << "argument " << i << " must be a number\n";
           exit(EXIT_FAILURE);
         }
       } else {
@@ -193,18 +207,18 @@ int main(int argc, char *argv[]) {
   SDL_FreeSurface(tile_map_surface);
   SDL_FreeSurface(clicked_surface);
 
-  const int GRID_WIDTH = 32;
-  const int GRID_HEIGHT = 23;
+  const int GRID_WIDTH = 73;
+  const int GRID_HEIGHT = 52;
   std::vector<std::vector<bool>> game_state(
       GRID_WIDTH, std::vector<bool>(GRID_HEIGHT, false));
 
   SDL_Rect tile[GRID_WIDTH][GRID_HEIGHT];
   for (int x = 0; x < GRID_WIDTH; x++) {
     for (int y = 0; y < GRID_HEIGHT; y++) {
-      tile[x][y].x = x * 32;
-      tile[x][y].y = y * 32;
-      tile[x][y].w = 32;
-      tile[x][y].h = 32;
+      tile[x][y].x = 5 + x * 16;
+      tile[x][y].y = 5 + y * 16;
+      tile[x][y].w = 16;
+      tile[x][y].h = 16;
     }
   }
 
@@ -227,8 +241,8 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < button_vector.size(); i++) {
     Button &curr_button = button_vector[i];
     curr_button.srect.y = i * 100;
-    curr_button.drect.x = 1027;
-    curr_button.drect.y = 15 + (i * 100);
+    curr_button.drect.x = 1175;
+    curr_button.drect.y = 5 + (i*3) + (i * 100);
   }
 
   bool game_is_running = true;
@@ -237,7 +251,7 @@ int main(int argc, char *argv[]) {
   int display_speed = 3;
   int counter = 0;
 
-  TTF_Font *font = TTF_OpenFont("../images/Roboto-Black.ttf", 32);
+  TTF_Font *font = TTF_OpenFont("../images/Roboto-Black.ttf", 48);
   SDL_Color textColor = {255, 255, 255, 255};
 
   while (game_is_running) {
@@ -268,7 +282,7 @@ int main(int argc, char *argv[]) {
           if (!game_start) {
             game_start = true;
             iterate_round(game_state, game_state, game_start, GRID_WIDTH,
-                          GRID_HEIGHT, counter);
+                          GRID_HEIGHT, counter, rules);
             game_start = false;
           }
         }
@@ -296,7 +310,7 @@ int main(int argc, char *argv[]) {
     SDL_RenderClear(renderer);
 
     iterate_round(game_state, game_state, game_start, GRID_WIDTH, GRID_HEIGHT,
-                  counter);
+                  counter, rules);
     for (int x = 0; x < GRID_WIDTH; x++) {
       for (int y = 0; y < GRID_HEIGHT; y++) {
         SDL_RenderCopy(renderer,
@@ -313,10 +327,10 @@ int main(int argc, char *argv[]) {
 
     // Text rendering
     std::string iterations = "Iterations: " + std::to_string(counter);
-    renderText(renderer, font, iterations, 1024, 670, textColor);
+    renderText(renderer, font, iterations, 270 , 840, textColor);
 
     std::string show_speed = "Current Speed: " + std::to_string(display_speed);
-    renderText(renderer, font, show_speed, 1024, 700, textColor);
+    renderText(renderer, font, show_speed, 640, 840, textColor);
 
     // Display renderer to the screen
     SDL_RenderPresent(renderer);
