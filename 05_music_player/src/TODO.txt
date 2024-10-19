@@ -1,0 +1,8 @@
+UI
+    1. GUI with buttons and feedback
+    2. Buttons (play, pause, next, previous)
+    3. Display track name
+    4. Progress bar
+
+Audio Playback
+    1. MP3 files
