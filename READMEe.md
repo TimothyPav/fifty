@@ -12,3 +12,4 @@ A collection of 50 backend/low level projects that should all be able to be comp
 | [CSV Data Analyzer](./02_csv_data_analyzer) | Java | Intermediate |
 | [Raytracer](./03_raytracer) | C++ | Intermediate |
 | [Game of Life](./04_game_of_life) | C++ | Beginner |
+| [Music Player](./05_music_player) | Java | Intermediate |
