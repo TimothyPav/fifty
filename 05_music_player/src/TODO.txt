@@ -6,3 +6,19 @@ UI
 
 Audio Playback
     1. MP3 files
+    2. Basic playback controls (play, pause, next, previous)
+
+Playlists
+    1. Allow users to create playlists
+    2. Display list of playlists
+    3. Playlist navigation
+
+File Handling
+    1. Allow users to input mp3 files
+    2. Read metadata from files (artist, title)
+
+Playback Handling
+    1. Show duration of track
+    2. Volume slider
+    3. Handle unsupported files
+    4. Audio wave form
