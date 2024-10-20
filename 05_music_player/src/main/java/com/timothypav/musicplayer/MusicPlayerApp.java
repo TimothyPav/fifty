@@ -9,10 +9,14 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import javafx.scene.input.MouseEvent;
 import java.io.File;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.control.ScrollBar;
+import javafx.util.Duration;
 
 public class MusicPlayerApp extends Application {
 
@@ -57,6 +61,13 @@ public class MusicPlayerApp extends Application {
 
         ProgressBar bar = new ProgressBar(0);
 
+        bar.setOnMouseClicked((MouseEvent event) -> {
+            double click_position = event.getX()/bar.getWidth();
+            Duration seek_time = mediaPlayer.getTotalDuration().multiply(click_position);
+            mediaPlayer.seek(seek_time);
+            bar.setProgress(click_position);
+        });
+
         mediaPlayer.currentTimeProperty().addListener((observable,  oldValue, newValue) -> {
             double value = newValue.toMinutes();
             double total_duration = mediaPlayer.getTotalDuration().toMinutes();
@@ -76,8 +87,6 @@ public class MusicPlayerApp extends Application {
 
 
     public static void main(String[] args) {
-        System.out.println("Hello ABOVE");
         launch(args);
-        System.out.println("Hello BELOW");
     }
 }
