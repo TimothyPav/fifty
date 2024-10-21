@@ -20,64 +20,39 @@ import javafx.util.Duration;
 
 public class MusicPlayerApp extends Application {
 
-    private MediaPlayer mediaPlayer;
+    private SongPlayer songPlayer;
 
     @Override
     public void start(Stage stage) {
         String bip = "./songs/creative-technology-showreel.mp3";
         Media hit = new Media(new File(bip).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(hit);
+        System.out.println("HELLO!!!!: " + hit.getMetadata().toString());
+        SongPlayer songPlayer = new SongPlayer(hit);
+        MediaPlayer player = songPlayer.getMediaPlayer();
 
 
         // Button to stop playback
         Button stopButton = new Button("Stop Music");
-        stopButton.setOnAction(e -> mediaPlayer.stop());
+        stopButton.setOnAction(e -> songPlayer.pause());
 
         // Button to start playback
         Button playButton = new Button("Play Music");
-        playButton.setOnAction(e -> mediaPlayer.play());
+        playButton.setOnAction(e -> songPlayer.play());
 
-        ScrollBar s = new ScrollBar();
-        s.setMin(0);
-        s.setMax(.5);
-        s.setValue(.05);
-        s.setOrientation(Orientation.HORIZONTAL);
-        s.setUnitIncrement(.001);
-        s.setBlockIncrement(.001);
-        mediaPlayer.setVolume(s.getValue());
+        VolumeBar volumeBar = new VolumeBar(player);
 
+        PlaybackBar b = new PlaybackBar(player);
 
-        // Create a Label to display the value
-        Label valueLabel = new Label("Current Value: " + s.getValue());
-
-        // Add a listener to the ScrollBar's value property
-        s.valueProperty().addListener((observable, oldValue, newValue) -> {
-            // This code runs every time the value changes
-            double value = newValue.doubleValue();
-            valueLabel.setText(String.format("Current Value: %.2f", value));
-
-            mediaPlayer.setVolume(value);
-        });
-
-        ProgressBar bar = new ProgressBar(0);
-
-        bar.setOnMouseClicked((MouseEvent event) -> {
-            double click_position = event.getX()/bar.getWidth();
-            Duration seek_time = mediaPlayer.getTotalDuration().multiply(click_position);
-            mediaPlayer.seek(seek_time);
-            bar.setProgress(click_position);
-        });
-
-        mediaPlayer.currentTimeProperty().addListener((observable,  oldValue, newValue) -> {
+        player.currentTimeProperty().addListener((observable,  oldValue, newValue) -> {
             double value = newValue.toMinutes();
-            double total_duration = mediaPlayer.getTotalDuration().toMinutes();
+            double total_duration = player.getTotalDuration().toMinutes();
             double progress = value/total_duration;
-            bar.setProgress(progress);
+            b.setTime(progress);
         });
 
 
         // Layout with buttons
-        VBox root = new VBox(stopButton, playButton, s, valueLabel, bar);
+        VBox root = new VBox(stopButton, playButton, volumeBar.getScrollBar(), b.getBar());
 
         Scene scene = new Scene(root, 300, 500);
         stage.setTitle("Music Player");
