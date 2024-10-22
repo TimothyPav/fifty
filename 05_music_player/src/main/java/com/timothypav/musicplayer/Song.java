@@ -2,12 +2,18 @@ package com.timothypav.musicplayer;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 
-public class SongPlayer {
+import java.io.File;
+
+public class Song {
     private MediaPlayer songPlayer;
 
-    public SongPlayer(Media song) {
+    public Song(String file){
+        Media song = new Media(new File(file).toURI().toString());
+        this.songPlayer = new MediaPlayer(song);
+    }
+
+    public Song(Media song) {
         this.songPlayer = new MediaPlayer(song);
     }
 
@@ -29,6 +35,7 @@ public class SongPlayer {
     public MediaPlayer getMediaPlayer(){
         return songPlayer;
     }
+
 
 
 }
