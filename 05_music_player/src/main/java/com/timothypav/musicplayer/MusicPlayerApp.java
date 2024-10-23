@@ -3,6 +3,7 @@ package com.timothypav.musicplayer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -17,41 +18,42 @@ public class MusicPlayerApp extends Application {
 
     @Override
     public void start(Stage stage) {
-        String bip = "./songs/creative-technology-showreel.mp3";
-        Media hit = new Media(new File(bip).toURI().toString());
-        System.out.println("HELLO!!!!: " + hit.getMetadata().toString());
-        Song song = new Song(hit);
+        Song song = new Song("./songs/creative-technology-showreel.mp3", "creative technology showreel");
         MediaPlayer player = song.getMediaPlayer();
-        Song song2 = new Song("./songs/night-detective.mp3");
+        Song song2 = new Song("./songs/night-detective.mp3", "night detective");
 
-        Playlist playlist = new Playlist();
+        Playlist playlist = new Playlist("test playlist");
         playlist.addSong(song);
         playlist.addSong(song2);
-        playlist.playAll();
 
 
         // Button to stop playback
         Button stopButton = new Button("Stop Music");
-        stopButton.setOnAction(e -> song.pause());
+        stopButton.setOnAction(e -> playlist.currentSong().pause());
 
         // Button to start playback
         Button playButton = new Button("Play Music");
-        playButton.setOnAction(e -> song.play());
+        playButton.setOnAction(e -> playlist.currentSong().play());
+
+        Button nextButton = new Button("Next Song");
+        nextButton.setOnAction(e -> playlist.playNext());
+
+
 
         VolumeBar volumeBar = new VolumeBar(player);
-
-        PlaybackBar b = new PlaybackBar(player);
 
         player.currentTimeProperty().addListener((observable,  oldValue, newValue) -> {
             double value = newValue.toMinutes();
             double total_duration = player.getTotalDuration().toMinutes();
             double progress = value/total_duration;
-            b.setTime(progress);
+            playlist.currentSong().getPlaybackBar().setTime(progress);
         });
 
 
+        VBox mainControls = new VBox(stopButton, playButton, nextButton, volumeBar.getScrollBar(), playlist.currentSong().getPlaybackBar().getBar());
+
         // Layout with buttons
-        VBox root = new VBox(stopButton, playButton, volumeBar.getScrollBar(), b.getBar());
+        HBox root = new HBox(playlist.getVBox(), mainControls);
 
         Scene scene = new Scene(root, 1000, 800);
         stage.setTitle("Music Player");
