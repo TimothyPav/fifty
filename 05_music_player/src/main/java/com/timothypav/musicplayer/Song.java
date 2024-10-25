@@ -62,18 +62,23 @@ public class Song {
         return name;
     }
 
-    public HBox getLayout() {
+    public HBox getLayout(Button previous, Button next) {
         if (layout != null)
             layout.getChildren().clear();
+
+        volumeBar.setVolume();
 
         Button playButton = new Button("Play");
         playButton.setOnAction(e -> play());
         Button pauseButton = new Button("Pause");
         pauseButton.setOnAction(e -> pause());
-        layout.getChildren().add(playButton);
-        layout.getChildren().add(pauseButton);
-        layout.getChildren().add(playbackBar.getBar());
-        layout.getChildren().add(volumeBar.getScrollBar());
+
+        HBox mediaButtons = new HBox(previous, playButton, pauseButton, next);
+        HBox mediaBars = new HBox(playbackBar.getBar(), volumeBar.getScrollBar());
+
+        VBox mediaControls = new VBox(mediaButtons, mediaBars);
+
+        layout.getChildren().add(mediaControls);
         System.out.println("UPDATED");
         return layout;
     }

@@ -16,6 +16,8 @@ public class MusicPlayerApp extends Application {
 
     private Song song;
 
+    public static double VOLUME = 0.1;
+
     @Override
     public void start(Stage stage) {
         Song song = new Song("./songs/creative-technology-showreel.mp3", "creative technology showreel");

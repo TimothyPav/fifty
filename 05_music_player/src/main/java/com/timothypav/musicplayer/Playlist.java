@@ -15,8 +15,8 @@ public class Playlist {
     private int currentIndex = 0;
     private VBox layout;
 
-    private HBox getMusicControls(){
-        return currentSong().getLayout();
+    private HBox getMusicControls(Button previous, Button next){
+        return currentSong().getLayout(previous, next);
     }
 
     public Playlist(String name) {
@@ -49,7 +49,7 @@ public class Playlist {
     }
 
     public Song currentSong(){
-       return playlist.get(currentIndex);
+        return playlist.get(currentIndex);
     }
 
     public void playNext() {
@@ -57,6 +57,17 @@ public class Playlist {
         currentIndex++;
 
         if (currentIndex == playlist.size())
+            currentIndex = 0;
+
+        getVBox();
+        playSong(currentIndex);
+    }
+
+    public void playPrevious() {
+        currentSong().reset();
+        currentIndex--;
+
+        if (currentIndex == -1)
             currentIndex = 0;
 
         getVBox();
@@ -73,15 +84,35 @@ public class Playlist {
 
         Label playlistName = new Label("Current Playlist: " + this.playlistName);
         layout.getChildren().add(playlistName);
+        int index = 0;
         for (Song song : playlist) {
             Label songName = new Label(song.getName());
+
+            int finalIndex = index;
+            songName.setOnMouseClicked(e -> handleSongClick(finalIndex));
+
+            if (index == currentIndex)
+                songName.setStyle("-fx-background-color: #e0e0e0; -fx-font-weight: bold;");
+            songName.setStyle(songName.getStyle() + "-fx-cursor: hand;");
+
             layout.getChildren().add(songName);
+            index++;
         }
+        Button prevButton = new Button("Previous");
+        prevButton.setOnAction(e -> playPrevious());
+
         Button nextButton = new Button("Next");
         nextButton.setOnAction(e -> playNext());
-        VBox songControls = new VBox(nextButton, getMusicControls());
+        HBox songControls = new HBox(getMusicControls(prevButton, nextButton));
         layout.getChildren().add(songControls);
         return layout;
+    }
+
+    private void handleSongClick(int clickedIndex){
+        currentSong().reset();
+        currentIndex = clickedIndex;
+        getVBox();
+        playSong(currentIndex);
     }
 
 

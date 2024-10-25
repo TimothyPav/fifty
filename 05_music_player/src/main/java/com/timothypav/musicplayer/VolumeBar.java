@@ -8,9 +8,11 @@ import javafx.scene.media.MediaPlayer;
 public class VolumeBar {
     private final ScrollBar volumeBar;
     private final MediaPlayer mediaPlayer;
+    private double volume;
 
     private void handleOnChange(Observable observable){
-        mediaPlayer.setVolume(volumeBar.getValue());
+        MusicPlayerApp.VOLUME = volumeBar.getValue();
+        mediaPlayer.setVolume(MusicPlayerApp.VOLUME);
     }
 
     public VolumeBar(MediaPlayer mediaPlayer){
@@ -18,13 +20,18 @@ public class VolumeBar {
         this.mediaPlayer = mediaPlayer;
         volumeBar.setMin(0);
         volumeBar.setMax(.5);
-        volumeBar.setValue(.05);
+        volumeBar.setValue(MusicPlayerApp.VOLUME);
         volumeBar.setOrientation(Orientation.HORIZONTAL);
         volumeBar.setUnitIncrement(.001);
         volumeBar.setBlockIncrement(.001);
-        mediaPlayer.setVolume(volumeBar.getValue());
+        mediaPlayer.setVolume(MusicPlayerApp.VOLUME);
 
         volumeBar.valueProperty().addListener(this::handleOnChange);
+    }
+
+    public void setVolume() {
+        mediaPlayer.setVolume(MusicPlayerApp.VOLUME);
+        this.volumeBar.setValue(MusicPlayerApp.VOLUME);
     }
 
     public ScrollBar getScrollBar() {
