@@ -16,11 +16,21 @@ public class PlaybackBar {
         bar.setProgress(clickPosition);
     }
 
+    private void setupTimeListener() {
+        mediaPlayer.currentTimeProperty().addListener((observable,  oldValue, newValue) -> {
+            double value = newValue.toMinutes();
+            double total_duration = mediaPlayer.getTotalDuration().toMinutes();
+            double progress = value/total_duration;
+            setTime(progress);
+        });
+    }
+
     public PlaybackBar(MediaPlayer mediaPlayer){
         bar = new ProgressBar(0);
         this.mediaPlayer = mediaPlayer;
 
         bar.setOnMouseClicked(this::handleMouseClick);
+        setupTimeListener();
     }
 
 

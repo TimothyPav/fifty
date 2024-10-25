@@ -1,5 +1,6 @@
 package com.timothypav.musicplayer;
 
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
@@ -13,6 +14,10 @@ public class Playlist {
     private String playlistName;
     private int currentIndex = 0;
     private VBox layout;
+
+    private HBox getMusicControls(){
+        return currentSong().getLayout();
+    }
 
     public Playlist(String name) {
         playlist = new ArrayList<Song>();
@@ -48,11 +53,13 @@ public class Playlist {
     }
 
     public void playNext() {
-        if (currentIndex == playlist.size() - 1)
-            currentIndex = 0;
-
         currentSong().reset();
         currentIndex++;
+
+        if (currentIndex == playlist.size())
+            currentIndex = 0;
+
+        getVBox();
         playSong(currentIndex);
     }
 
@@ -61,15 +68,21 @@ public class Playlist {
     }
 
     public VBox getVBox() {
-        Label playlistName = new Label(this.playlistName);
+        if (layout != null)
+            layout.getChildren().clear();
+
+        Label playlistName = new Label("Current Playlist: " + this.playlistName);
         layout.getChildren().add(playlistName);
-        System.out.println("Length of playlist: " + playlist.size());
         for (Song song : playlist) {
-            System.out.printf("NAME OF SONG ALLEGEDLY: " + song.getName());
             Label songName = new Label(song.getName());
             layout.getChildren().add(songName);
         }
+        Button nextButton = new Button("Next");
+        nextButton.setOnAction(e -> playNext());
+        VBox songControls = new VBox(nextButton, getMusicControls());
+        layout.getChildren().add(songControls);
         return layout;
     }
+
 
 }

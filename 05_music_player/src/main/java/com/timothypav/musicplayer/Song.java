@@ -1,5 +1,7 @@
 package com.timothypav.musicplayer;
 
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -13,14 +15,16 @@ public class Song {
     private MediaPlayer songPlayer;
     private String name;
     private PlaybackBar playbackBar;
-    private VBox layout;
+    private VolumeBar volumeBar;
+    private HBox layout;
 
     public Song(String file, String name){
         Media song = new Media(new File(file).toURI().toString());
         this.songPlayer = new MediaPlayer(song);
         this.name = name;
         this.playbackBar = new PlaybackBar(songPlayer);
-        this.layout = new VBox();
+        this.volumeBar = new VolumeBar(songPlayer);
+        this.layout = new HBox();
     }
 
     public Song(Media song) {
@@ -58,12 +62,26 @@ public class Song {
         return name;
     }
 
-    public VBox getLayout() {
-        Label play = new Label("Play Song");
-        Label pause = new Label("Pause Song");
-        layout.getChildren().add(play);
-        layout.getChildren().add(pause);
+    public HBox getLayout() {
+        if (layout != null)
+            layout.getChildren().clear();
+
+        Button playButton = new Button("Play");
+        playButton.setOnAction(e -> play());
+        Button pauseButton = new Button("Pause");
+        pauseButton.setOnAction(e -> pause());
+        layout.getChildren().add(playButton);
+        layout.getChildren().add(pauseButton);
+        layout.getChildren().add(playbackBar.getBar());
+        layout.getChildren().add(volumeBar.getScrollBar());
+        System.out.println("UPDATED");
         return layout;
     }
+//    Button stopButton = new Button("Stop Music");
+//        stopButton.setOnAction(e -> playlist.currentSong().pause());
+//
+//    // Button to start playback
+//    Button playButton = new Button("Play Music");
+//        playButton.setOnAction(e -> playlist.currentSong().play());
 
 }

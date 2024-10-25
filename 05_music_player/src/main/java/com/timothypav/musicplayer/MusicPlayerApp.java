@@ -26,34 +26,10 @@ public class MusicPlayerApp extends Application {
         playlist.addSong(song);
         playlist.addSong(song2);
 
-
-        // Button to stop playback
-        Button stopButton = new Button("Stop Music");
-        stopButton.setOnAction(e -> playlist.currentSong().pause());
-
-        // Button to start playback
-        Button playButton = new Button("Play Music");
-        playButton.setOnAction(e -> playlist.currentSong().play());
-
-        Button nextButton = new Button("Next Song");
-        nextButton.setOnAction(e -> playlist.playNext());
-
-
-
-        VolumeBar volumeBar = new VolumeBar(player);
-
-        player.currentTimeProperty().addListener((observable,  oldValue, newValue) -> {
-            double value = newValue.toMinutes();
-            double total_duration = player.getTotalDuration().toMinutes();
-            double progress = value/total_duration;
-            playlist.currentSong().getPlaybackBar().setTime(progress);
-        });
-
-
-        VBox mainControls = new VBox(stopButton, playButton, nextButton, volumeBar.getScrollBar(), playlist.currentSong().getPlaybackBar().getBar());
+        VBox mainControls = new VBox(playlist.getVBox());
 
         // Layout with buttons
-        HBox root = new HBox(playlist.getVBox(), mainControls);
+        HBox root = new HBox(mainControls);
 
         Scene scene = new Scene(root, 1000, 800);
         stage.setTitle("Music Player");
