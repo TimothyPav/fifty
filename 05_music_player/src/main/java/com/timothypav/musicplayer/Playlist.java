@@ -37,6 +37,10 @@ public class Playlist {
         return playlist.size();
     }
 
+    public String getPlaylistName() {
+        return playlistName;
+    }
+
     public void playSong(int index) {
         if (getSize() > index) {
             currentIndex = index;

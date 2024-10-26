@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Objects;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -17,18 +18,28 @@ public class MusicPlayerApp extends Application {
     private Song song;
 
     public static double VOLUME = 0.1;
+    public final static File SONGS_DIRECTORY = new File("./songs");
+
+    public void listFilesInDirectory(final File folder, Playlist playlist) {
+        for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
+            Song song = new Song(fileEntry.getAbsolutePath(), fileEntry.getName());
+            playlist.addSong(song);
+        }
+    }
 
     @Override
     public void start(Stage stage) {
-        Song song = new Song("./songs/creative-technology-showreel.mp3", "creative technology showreel");
-        MediaPlayer player = song.getMediaPlayer();
-        Song song2 = new Song("./songs/night-detective.mp3", "night detective");
 
-        Playlist playlist = new Playlist("test playlist");
-        playlist.addSong(song);
-        playlist.addSong(song2);
+        Playlist playlist = new Playlist("main playlist");
+        listFilesInDirectory(SONGS_DIRECTORY, playlist);
+        PlaylistCatalog playlistCatalog = new PlaylistCatalog(playlist);
 
-        VBox mainControls = new VBox(playlist.getVBox());
+        Playlist playlist1 = new Playlist("second playlist");
+        listFilesInDirectory(SONGS_DIRECTORY, playlist1);
+        playlistCatalog.addToPlaylistCatalog(playlist1);
+
+
+        VBox mainControls = new VBox(playlistCatalog.getLayout());
 
         // Layout with buttons
         HBox root = new HBox(mainControls);
