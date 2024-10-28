@@ -38,11 +38,12 @@ public class MusicPlayerApp extends Application {
         listFilesInDirectory(SONGS_DIRECTORY, playlist1);
         playlistCatalog.addToPlaylistCatalog(playlist1);
 
+        SongSearch songSearch = new SongSearch(playlist);
 
         VBox mainControls = new VBox(playlistCatalog.getLayout());
 
         // Layout with buttons
-        HBox root = new HBox(mainControls);
+        HBox root = new HBox(songSearch.getLayout(), mainControls);
 
         Scene scene = new Scene(root, 1000, 800);
         stage.setTitle("Music Player");
