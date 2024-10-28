@@ -39,6 +39,7 @@ public class Song {
         songPlayer.pause();
     }
     public void play(){
+        PlaylistCatalog.resetAllSongs(this.songPlayer);
         songPlayer.play();
     }
 

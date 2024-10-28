@@ -3,14 +3,13 @@ package com.timothypav.musicplayer;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
 
 import javafx.scene.control.Label;
 
 public class Playlist {
-    private ArrayList<Song> playlist;
+    private final ArrayList<Song> playlist;
     private String playlistName;
     private int currentIndex = 0;
     private VBox layout;
@@ -80,6 +79,10 @@ public class Playlist {
 
     public void playAll() {
         playSong(0);
+    }
+
+    public ArrayList<Song> getPlaylist(){
+        return playlist;
     }
 
     public VBox getVBox() {

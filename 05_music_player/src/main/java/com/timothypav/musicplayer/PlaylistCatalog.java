@@ -1,18 +1,27 @@
 package com.timothypav.musicplayer;
 
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
 
 public class PlaylistCatalog {
-    private final ArrayList<Playlist> playlistCatalog;
+    private static final ArrayList<Playlist> playlistCatalog = new ArrayList<Playlist>();
     private VBox layout;
 
     public PlaylistCatalog(Playlist playlist){
-        playlistCatalog = new ArrayList<Playlist>();
         playlistCatalog.add(playlist);
 
         layout = new VBox();
+    }
+
+    public static void resetAllSongs(MediaPlayer currentSong){
+        for (Playlist p : playlistCatalog){
+            for (Song s : p.getPlaylist()){
+                if(s.getMediaPlayer() != currentSong)
+                    s.reset();
+            }
+        }
     }
 
     public void addToPlaylistCatalog(Playlist playlist){
