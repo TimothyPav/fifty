@@ -9,28 +9,19 @@ import java.util.*;
 public class SongSearch {
     private final Trie trie;
     private final VBox layout;
+    private final VBox songNames;
     private final TextField songField;
-    // TODO
-    // Make this a tuple so i never have to delete from songs set
-    private final Set<Label> songs;
+    private final HashMap<Label, Boolean> songs;
 
     private void onChange(String newValue){
         Set<String> words = this.trie.getWordsWithPrefix(newValue);
-        ArrayList<Label> deleteSongs = new ArrayList<>();
-        for (Label label : songs){
-            if (!words.contains(label.getText())) {
-                System.out.println("HELLO");
-                this.layout.getChildren().remove(label);
-                deleteSongs.add(label);
+        if (this.songNames != null)
+            this.songNames.getChildren().clear();
+        for (Label label : songs.keySet()){
+            if (words.contains(label.getText())) {
+                assert songNames != null;
+                songNames.getChildren().add(label);
             }
-            else if(!songs.contains(label)) {
-                System.out.println("SECOND ELSE IF");
-                this.layout.getChildren().add(label);
-                songs.add(label);
-            }
-        }
-        for (Label label : deleteSongs){
-            songs.remove(label);
         }
         System.out.println(songs.toString());
     }
@@ -39,13 +30,14 @@ public class SongSearch {
         trie = new Trie();
         Label songSearch = new Label("Song Search");
         songField = new TextField();
-        layout = new VBox(songSearch, songField);
-        songs = new HashSet<>();
+        songNames = new VBox();
+        layout = new VBox(songSearch, songField, songNames);
+        songs = new HashMap<>();
         for (Song song : songsFolder.getPlaylist()){
             Label songName = new Label(song.getName());
             trie.insert(song.getName());
-            songs.add(songName);
-            layout.getChildren().add(songName);
+            songs.put(songName, true);
+            songNames.getChildren().add(songName);
         }
         songField.textProperty().addListener((observable, oldValue, newValue) -> {
             onChange(newValue); // Call the onChange method whenever text changes
