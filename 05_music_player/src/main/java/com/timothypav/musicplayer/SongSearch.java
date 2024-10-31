@@ -26,6 +26,7 @@ public class SongSearch {
         System.out.println(songs.toString());
     }
 
+    // TODO: Add (+) button so users can add to whatever playlist they want
     public SongSearch(Playlist songsFolder){
         trie = new Trie();
         Label songSearch = new Label("Song Search");
@@ -54,7 +55,7 @@ public class SongSearch {
         public boolean endOfWord = false;
 
         public TrieNode(){
-            children = new HashMap<Character, TrieNode>();
+            children = new HashMap<>();
         }
     }
 

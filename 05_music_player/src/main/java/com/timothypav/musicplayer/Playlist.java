@@ -115,6 +115,11 @@ public class Playlist {
         return layout;
     }
 
+    @Override
+    public String toString() {
+        return getPlaylistName();
+    }
+
     private void handleSongClick(int clickedIndex){
         currentSong().reset();
         currentIndex = clickedIndex;
