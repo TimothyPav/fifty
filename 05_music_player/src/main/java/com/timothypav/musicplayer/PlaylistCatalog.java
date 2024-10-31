@@ -11,7 +11,7 @@ import javafx.scene.media.MediaPlayer;
 import java.util.ArrayList;
 
 public class PlaylistCatalog {
-    private static final ArrayList<Playlist> playlistCatalog = new ArrayList<Playlist>();
+    public static final ArrayList<Playlist> playlistCatalog = new ArrayList<Playlist>();
     private VBox layout;
     public ComboBox playlistChoice;
 
