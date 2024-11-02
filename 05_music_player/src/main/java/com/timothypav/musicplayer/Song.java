@@ -83,11 +83,4 @@ public class Song {
         System.out.println("UPDATED");
         return layout;
     }
-//    Button stopButton = new Button("Stop Music");
-//        stopButton.setOnAction(e -> playlist.currentSong().pause());
-//
-//    // Button to start playback
-//    Button playButton = new Button("Play Music");
-//        playButton.setOnAction(e -> playlist.currentSong().play());
-
 }

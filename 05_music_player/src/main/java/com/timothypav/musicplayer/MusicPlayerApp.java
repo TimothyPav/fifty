@@ -19,6 +19,7 @@ public class MusicPlayerApp extends Application {
 
     public static double VOLUME = 0.1;
     public final static File SONGS_DIRECTORY = new File("./songs");
+    public static PlaylistCatalog playlistCatalog = null;
 
     public void listFilesInDirectory(final File folder, Playlist playlist) {
         for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
@@ -32,7 +33,7 @@ public class MusicPlayerApp extends Application {
 
         Playlist playlist = new Playlist("main playlist");
         listFilesInDirectory(SONGS_DIRECTORY, playlist);
-        PlaylistCatalog playlistCatalog = new PlaylistCatalog(playlist);
+        playlistCatalog = new PlaylistCatalog(playlist);
 
         Playlist playlist1 = new Playlist("second playlist");
         listFilesInDirectory(SONGS_DIRECTORY, playlist1);

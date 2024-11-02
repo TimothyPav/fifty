@@ -1,19 +1,23 @@
 package com.timothypav.musicplayer;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class PlaylistCatalog {
     public static final ArrayList<Playlist> playlistCatalog = new ArrayList<Playlist>();
     private VBox layout;
     public ComboBox playlistChoice;
+    private Button newPlaylist;
 
     public PlaylistCatalog(Playlist playlist){
         playlistCatalog.add(playlist);
@@ -22,6 +26,8 @@ public class PlaylistCatalog {
         playlistChoice = new ComboBox<>();
         playlistChoice.setValue(playlistCatalog.get(0));
         playlistChoice.setOnAction(this::handleChange);
+        newPlaylist = new Button("+");
+        newPlaylist.setOnAction(e -> handleMakePlaylist());
     }
 
     public static void resetAllSongs(MediaPlayer currentSong){
@@ -54,7 +60,7 @@ public class PlaylistCatalog {
 
     public void addToPlaylistCatalog(Playlist playlist){
         playlistCatalog.add(playlist);
-        getLayout();
+//        getLayout();
     }
 
     public void deletePlaylistInCatalog(Playlist playlist){
@@ -66,13 +72,31 @@ public class PlaylistCatalog {
         }
     }
 
+    private void handleMakePlaylist(){
+        TextInputDialog td = new TextInputDialog();
+        td.setHeaderText("Enter playlist name");
+
+        Optional<String> result = td.showAndWait();
+        // this shows the dialog, waits until it is closed, and stores the result
+
+
+        // if the result is present (i.e. if a string was entered) call doSomething() on it
+        result.ifPresent(string -> {
+            Playlist newPlaylist = new Playlist(string);
+            addToPlaylistCatalog(newPlaylist);
+            playlistChoice.setValue(newPlaylist);
+        });
+    }
 
     public VBox getLayout() {
         if (layout != null)
             layout.getChildren().clear();
 
         setPlaylists();
-        layout.getChildren().add(playlistChoice);
+
+        HBox playlistControls = new HBox(playlistChoice, newPlaylist);
+
+        layout.getChildren().add(playlistControls);
 
         // get playlist from combo box and cast to playlist object
         Playlist selectedPlaylist = (Playlist) playlistChoice.getValue();

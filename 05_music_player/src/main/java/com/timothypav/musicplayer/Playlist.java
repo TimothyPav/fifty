@@ -86,6 +86,11 @@ public class Playlist {
     }
 
     public VBox getVBox() {
+        if (playlist.isEmpty()){
+            Label noSongs = new Label("No songs in this playlist");
+            return new VBox(noSongs);
+        }
+
         if (layout != null)
             layout.getChildren().clear();
 
