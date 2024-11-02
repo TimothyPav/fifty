@@ -19,7 +19,7 @@ public class MusicPlayerApp extends Application {
 
     public static double VOLUME = 0.1;
     public final static File SONGS_DIRECTORY = new File("./songs");
-    public static PlaylistCatalog playlistCatalog = null;
+    public static PlaylistCatalog PLAYLIST_CATALOG = null;
 
     public void listFilesInDirectory(final File folder, Playlist playlist) {
         for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
@@ -33,15 +33,15 @@ public class MusicPlayerApp extends Application {
 
         Playlist playlist = new Playlist("main playlist");
         listFilesInDirectory(SONGS_DIRECTORY, playlist);
-        playlistCatalog = new PlaylistCatalog(playlist);
+        PLAYLIST_CATALOG = new PlaylistCatalog(playlist);
 
         Playlist playlist1 = new Playlist("second playlist");
         listFilesInDirectory(SONGS_DIRECTORY, playlist1);
-        playlistCatalog.addToPlaylistCatalog(playlist1);
+        PLAYLIST_CATALOG.addToPlaylistCatalog(playlist1);
 
         SongSearch songSearch = new SongSearch(playlist);
 
-        VBox mainControls = new VBox(playlistCatalog.getLayout());
+        VBox mainControls = new VBox(PLAYLIST_CATALOG.getLayout());
 
         // Layout with buttons
         HBox root = new HBox(songSearch.getLayout(), mainControls);

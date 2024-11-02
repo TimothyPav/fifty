@@ -43,9 +43,9 @@ public class PlaylistCatalog {
         getLayout();
     }
 
-    public void setPlaylists(){
+    public void setPlaylists() {
+        Playlist currentSelection = (Playlist) playlistChoice.getValue();
         this.playlistChoice.setItems(FXCollections.observableArrayList(this.playlistCatalog));
-
         this.playlistChoice.setCellFactory(param -> new ListCell<Playlist>() {
             @Override
             protected void updateItem(Playlist item, boolean empty) {
@@ -56,11 +56,14 @@ public class PlaylistCatalog {
                     setText(item.getPlaylistName());
             }
         });
+        if (currentSelection != null) {
+            playlistChoice.setValue(currentSelection);
+        }
     }
 
     public void addToPlaylistCatalog(Playlist playlist){
         playlistCatalog.add(playlist);
-//        getLayout();
+        setPlaylists();
     }
 
     public void deletePlaylistInCatalog(Playlist playlist){
@@ -89,10 +92,11 @@ public class PlaylistCatalog {
     }
 
     public VBox getLayout() {
+        System.out.println("CATALOG GET_LAYOUT");
         if (layout != null)
             layout.getChildren().clear();
 
-        setPlaylists();
+//        setPlaylists();
 
         HBox playlistControls = new HBox(playlistChoice, newPlaylist);
 
@@ -100,7 +104,9 @@ public class PlaylistCatalog {
 
         // get playlist from combo box and cast to playlist object
         Playlist selectedPlaylist = (Playlist) playlistChoice.getValue();
-        layout.getChildren().add(selectedPlaylist.getVBox());
+        if (selectedPlaylist != null) {  // Add this null check
+            layout.getChildren().add(selectedPlaylist.getVBox());
+        }
 
         return layout;
     }

@@ -40,7 +40,7 @@ public class SongSearch {
             Label songName = new Label(song.getName());
             Button addSong = new Button("+");
 
-            addSong.setOnAction(e -> test(song));
+            addSong.setOnAction(e -> addToPlaylist(song));
 
             trie.insert(song.getName());
             songs.put(songName, true);
@@ -52,7 +52,7 @@ public class SongSearch {
         });
     }
 
-    private void test(Song song){
+    private void addToPlaylist(Song song){
         Stage popup = new Stage();
         popup.initModality(Modality.APPLICATION_MODAL); // blocks main window
         VBox playlistSelection = new VBox(10);
@@ -66,7 +66,6 @@ public class SongSearch {
         Scene scene = new Scene(playlistSelection);
         popup.setScene(scene);
         popup.showAndWait();
-
     }
 
     private static Button getButton(Song song, int i, Stage popup) {
@@ -88,7 +87,9 @@ public class SongSearch {
 
             popup.close();
             alert.showAndWait();
+            MusicPlayerApp.PLAYLIST_CATALOG.getLayout();
         });
+        System.out.println("HELLO");
         return playlist;
     }
 
