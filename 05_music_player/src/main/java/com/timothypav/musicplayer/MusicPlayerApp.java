@@ -2,16 +2,12 @@ package com.timothypav.musicplayer;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.Objects;
-
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 public class MusicPlayerApp extends Application {
 

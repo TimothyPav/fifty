@@ -1,6 +1,7 @@
 package com.timothypav.musicplayer;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -12,11 +13,15 @@ import javafx.scene.control.Label;
 
 
 public class Song {
+    public Button previous;
+    public Button next;
+
     private MediaPlayer songPlayer;
     private String name;
     private PlaybackBar playbackBar;
     private VolumeBar volumeBar;
     private HBox layout;
+    private Button playPauseButton;
 
     public Song(String file, String name){
         Media song = new Media(new File(file).toURI().toString());
@@ -36,14 +41,17 @@ public class Song {
     }
 
     public void pause(){
+        Playlist.isPlaying = false;
         songPlayer.pause();
     }
     public void play(){
         PlaylistCatalog.resetAllSongs(this.songPlayer);
+        Playlist.isPlaying = true;
         songPlayer.play();
     }
 
     public void reset(){
+        Playlist.isPlaying = false;
         songPlayer.stop();
     }
 
@@ -63,18 +71,26 @@ public class Song {
         return name;
     }
 
-    public HBox getLayout(Button previous, Button next) {
+    public HBox getLayout(Button prev, Button next) {
         if (layout != null)
             layout.getChildren().clear();
 
         volumeBar.setVolume();
 
-        Button playButton = new Button("Play");
-        playButton.setOnAction(e -> play());
-        Button pauseButton = new Button("Pause");
-        pauseButton.setOnAction(e -> pause());
+        playPauseButton = new Button("Play");
+        updatePlayPauseButton();
+        playPauseButton.setOnAction(e -> {
+            if (Playlist.isPlaying) {
+                pause();
+            }
+            else {
+                play();
+            }
+            updatePlayPauseButton();
+        });
 
-        HBox mediaButtons = new HBox(previous, playButton, pauseButton, next);
+        HBox mediaButtons = new HBox(prev, playPauseButton, next);
+
         HBox mediaBars = new HBox(playbackBar.getBar(), volumeBar.getScrollBar());
 
         VBox mediaControls = new VBox(mediaButtons, mediaBars);
@@ -82,5 +98,17 @@ public class Song {
         layout.getChildren().add(mediaControls);
         System.out.println("UPDATED");
         return layout;
+    }
+
+    private void updatePlayPauseButton() {
+        if (Playlist.isPlaying) {
+            playPauseButton.setText("Pause");
+            // Optionally add an icon or style
+//             playPauseButton.setGraphic(new ImageView(pauseIcon));
+        } else {
+            playPauseButton.setText("Play");
+            // Optionally add an icon or style
+            // playPauseButton.setGraphic(new ImageView(playIcon));
+        }
     }
 }

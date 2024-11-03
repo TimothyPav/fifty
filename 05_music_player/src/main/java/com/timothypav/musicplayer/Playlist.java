@@ -1,7 +1,13 @@
 package com.timothypav.musicplayer;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -9,6 +15,8 @@ import java.util.ArrayList;
 import javafx.scene.control.Label;
 
 public class Playlist {
+    public static boolean isPlaying = false;
+
     private final ArrayList<Song> playlist;
     private String playlistName;
     private int currentIndex = 0;
@@ -44,6 +52,7 @@ public class Playlist {
         if (getSize() > index) {
             currentIndex = index;
             Song currSong = playlist.get(currentIndex);
+            isPlaying = true;
             currSong.play();
             currSong.getMediaPlayer().setOnEndOfMedia(() -> {
                 playSong(currentIndex + 1);
@@ -63,6 +72,7 @@ public class Playlist {
             currentIndex = 0;
 
         getVBox();
+        isPlaying = true;
         playSong(currentIndex);
     }
 
@@ -74,10 +84,12 @@ public class Playlist {
             currentIndex = 0;
 
         getVBox();
+        isPlaying = true;
         playSong(currentIndex);
     }
 
     public void playAll() {
+        isPlaying = true;
         playSong(0);
     }
 
@@ -86,22 +98,25 @@ public class Playlist {
     }
 
     public VBox getVBox() {
-        if (playlist.isEmpty()){
-            Label noSongs = new Label("No songs in this playlist");
-            return new VBox(noSongs);
+        System.out.println(isPlaying);
+        if (layout != null) {
+            layout.getChildren().clear();
+            System.out.println("layout cleared...");
         }
 
-        if (layout != null)
-            layout.getChildren().clear();
+        if (playlist.isEmpty()){
+            Label noSongs = new Label("No songs in this playlist");
+            layout.getChildren().add(noSongs);
+            return layout;
+        }
 
-        Label playlistName = new Label("Current Playlist: " + this.playlistName);
-        layout.getChildren().add(playlistName);
         int index = 0;
         for (Song song : playlist) {
+            System.out.println("PROCESSING... " + song.getName());
             Label songName = new Label(song.getName());
 
             int finalIndex = index;
-            songName.setOnMouseClicked(e -> handleSongClick(finalIndex));
+            songName.setOnMouseClicked(e -> handleSongClick(e, finalIndex));
 
             if (index == currentIndex)
                 songName.setStyle("-fx-background-color: #e0e0e0; -fx-font-weight: bold;");
@@ -125,11 +140,31 @@ public class Playlist {
         return getPlaylistName();
     }
 
-    private void handleSongClick(int clickedIndex){
-        currentSong().reset();
-        currentIndex = clickedIndex;
-        getVBox();
-        playSong(currentIndex);
+    private void handleSongClick(MouseEvent e, int clickedIndex){
+        if (e.getButton() == MouseButton.PRIMARY) {
+            currentSong().reset();
+            currentIndex = clickedIndex;
+            isPlaying = true;
+            getVBox();
+            playSong(currentIndex);
+        } else if (e.getButton() == MouseButton.SECONDARY) {
+            if (!playlistName.equals("main playlist")) {
+                // create a menu
+                ContextMenu contextMenu = new ContextMenu();
+
+                // create menu items
+                MenuItem delete = new MenuItem("Delete this song?");
+                delete.setOnAction(event -> {
+                    removeSong(playlist.get(clickedIndex));
+                    getVBox();
+                });
+
+                // add menu items to menu
+                contextMenu.getItems().add(delete);
+
+                contextMenu.show(e.getPickResult().getIntersectedNode(), e.getScreenX(), e.getScreenY());
+            }
+        }
     }
 
 

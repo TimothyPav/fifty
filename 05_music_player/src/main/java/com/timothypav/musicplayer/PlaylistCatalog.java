@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,7 @@ public class PlaylistCatalog {
     private VBox layout;
     public ComboBox playlistChoice;
     private Button newPlaylist;
+    private Button deletePlaylist;
 
     public PlaylistCatalog(Playlist playlist){
         playlistCatalog.add(playlist);
@@ -28,6 +30,9 @@ public class PlaylistCatalog {
         playlistChoice.setOnAction(this::handleChange);
         newPlaylist = new Button("+");
         newPlaylist.setOnAction(e -> handleMakePlaylist());
+
+        deletePlaylist = new Button("-");
+        deletePlaylist.setOnMouseClicked(this::handleDeletePlaylist);
     }
 
     public static void resetAllSongs(MediaPlayer currentSong){
@@ -67,12 +72,14 @@ public class PlaylistCatalog {
     }
 
     public void deletePlaylistInCatalog(Playlist playlist){
+        System.out.println("deleting playlist... SIZE OF PLAYLIST CATALOG = " + playlistCatalog.size());
         for(int i = 1; i < playlistCatalog.size(); i++){
             if (playlistCatalog.get(i) == playlist){
                 playlistCatalog.remove(i);
                 break;
             }
         }
+        setPlaylists();
     }
 
     private void handleMakePlaylist(){
@@ -91,6 +98,19 @@ public class PlaylistCatalog {
         });
     }
 
+    private void handleDeletePlaylist(MouseEvent e){
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem del = new MenuItem("Delete this playlist?");
+        del.setOnAction(event -> {
+            deletePlaylistInCatalog((Playlist) playlistChoice.getValue());
+            playlistChoice.setValue(playlistCatalog.get(0));
+        });
+
+        contextMenu.getItems().add(del);
+        contextMenu.show(e.getPickResult().getIntersectedNode(), e.getScreenX(), e.getScreenY());
+    }
+
     public VBox getLayout() {
         System.out.println("CATALOG GET_LAYOUT");
         if (layout != null)
@@ -98,7 +118,7 @@ public class PlaylistCatalog {
 
 //        setPlaylists();
 
-        HBox playlistControls = new HBox(playlistChoice, newPlaylist);
+        HBox playlistControls = new HBox(playlistChoice, newPlaylist, deletePlaylist);
 
         layout.getChildren().add(playlistControls);
 
