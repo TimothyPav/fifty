@@ -19,6 +19,8 @@ public class MusicPlayerApp extends Application {
 
     public void listFilesInDirectory(final File folder, Playlist playlist) {
         for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
+            System.out.println(fileEntry.getAbsolutePath());
+            System.out.println(fileEntry.getName());
             Song song = new Song(fileEntry.getAbsolutePath(), fileEntry.getName());
             playlist.addSong(song);
         }

@@ -27,7 +27,10 @@ public class Playlist {
         try {
             return currentSong().getLayout(previous, next);
         } catch (NullPointerException e){
-            return new HBox();
+
+            // TODO: fix error when clicking previous and next buttons on dummy song
+            Song dummy = new Song("/home/tim/projects/fifty/05_music_player/dummy.mp3", "dummy.mp3");
+            return dummy.getLayout(previous, next);
         }
     }
 

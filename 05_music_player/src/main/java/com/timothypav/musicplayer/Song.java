@@ -32,10 +32,6 @@ public class Song {
         this.layout = new HBox();
     }
 
-    public Song(Media song) {
-        this.songPlayer = new MediaPlayer(song);
-    }
-
     public void setSong(Media song){
         songPlayer = new MediaPlayer(song);
     }
