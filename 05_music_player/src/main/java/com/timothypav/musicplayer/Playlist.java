@@ -23,7 +23,12 @@ public class Playlist {
     private VBox layout;
 
     private HBox getMusicControls(Button previous, Button next){
-        return currentSong().getLayout(previous, next);
+        System.out.println("THIS IS THE CURRENT SONG: " + currentSong());
+        try {
+            return currentSong().getLayout(previous, next);
+        } catch (NullPointerException e){
+            return new HBox();
+        }
     }
 
     public Playlist(String name) {
@@ -61,7 +66,13 @@ public class Playlist {
     }
 
     public Song currentSong(){
-        return playlist.get(currentIndex);
+        Song song;
+        try {
+            song = playlist.get(currentIndex);
+        } catch (IndexOutOfBoundsException e){
+            return null;
+        }
+        return song;
     }
 
     public void playNext() {
@@ -142,7 +153,9 @@ public class Playlist {
 
     private void handleSongClick(MouseEvent e, int clickedIndex){
         if (e.getButton() == MouseButton.PRIMARY) {
-            currentSong().reset();
+            try {
+                currentSong().reset();
+            } catch (NullPointerException ignored) {}
             currentIndex = clickedIndex;
             isPlaying = true;
             getVBox();
@@ -155,7 +168,18 @@ public class Playlist {
                 // create menu items
                 MenuItem delete = new MenuItem("Delete this song?");
                 delete.setOnAction(event -> {
-                    removeSong(playlist.get(clickedIndex));
+                    Song clickedSong = playlist.get(clickedIndex);
+
+                    // reset and remove song
+                    clickedSong.reset();
+                    removeSong(clickedSong);
+
+                    // Keep the index in line with the current song playing in the list
+                    if (clickedIndex < currentIndex)
+                        currentIndex--;
+                    else if (clickedIndex == currentIndex)
+                        currentIndex = -1;
+
                     getVBox();
                 });
 
