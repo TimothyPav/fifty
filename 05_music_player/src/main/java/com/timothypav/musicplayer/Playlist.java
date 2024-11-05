@@ -27,10 +27,11 @@ public class Playlist {
         try {
             return currentSong().getLayout(previous, next);
         } catch (NullPointerException e){
-
-            // TODO: fix error when clicking previous and next buttons on dummy song
             Song dummy = new Song("/home/tim/projects/fifty/05_music_player/dummy.mp3", "dummy.mp3");
-            return dummy.getLayout(previous, next);
+            Button dummyPrevious = new Button("Previous");
+            Button dummyNext = new Button("Next");
+
+            return dummy.getLayout(dummyPrevious, dummyNext);
         }
     }
 
@@ -107,12 +108,22 @@ public class Playlist {
         playSong(0);
     }
 
+    public void resetAll(){
+        for (Song song : playlist){
+
+        }
+    }
+
     public ArrayList<Song> getPlaylist(){
         return playlist;
     }
 
     public VBox getVBox() {
         System.out.println(isPlaying);
+
+        // Declare buttons at the top so i can pass them into the playlist.empty easier
+        Button prevButton = new Button("Previous");
+        Button nextButton = new Button("Next");
         if (layout != null) {
             layout.getChildren().clear();
             System.out.println("layout cleared...");
@@ -121,6 +132,7 @@ public class Playlist {
         if (playlist.isEmpty()){
             Label noSongs = new Label("No songs in this playlist");
             layout.getChildren().add(noSongs);
+            layout.getChildren().add(getMusicControls(prevButton, nextButton));
             return layout;
         }
 
@@ -139,10 +151,8 @@ public class Playlist {
             layout.getChildren().add(songName);
             index++;
         }
-        Button prevButton = new Button("Previous");
         prevButton.setOnAction(e -> playPrevious());
 
-        Button nextButton = new Button("Next");
         nextButton.setOnAction(e -> playNext());
         HBox songControls = new HBox(getMusicControls(prevButton, nextButton));
         layout.getChildren().add(songControls);

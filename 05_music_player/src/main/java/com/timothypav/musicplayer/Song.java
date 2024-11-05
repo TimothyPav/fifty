@@ -47,6 +47,8 @@ public class Song {
     }
 
     public void reset(){
+        // TODO: fix this from setting isPlaying to false when you play any song
+        System.out.println("RESET WAS CALLED AND SET isPlaying TO FALSE");
         Playlist.isPlaying = false;
         songPlayer.stop();
     }
