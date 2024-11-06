@@ -23,7 +23,6 @@ public class Playlist {
     private VBox layout;
 
     private HBox getMusicControls(Button previous, Button next){
-        System.out.println("THIS IS THE CURRENT SONG: " + currentSong());
         try {
             return currentSong().getLayout(previous, next);
         } catch (NullPointerException e){
@@ -66,6 +65,8 @@ public class Playlist {
             currSong.getMediaPlayer().setOnEndOfMedia(() -> {
                 playSong(currentIndex + 1);
             });
+            MusicPlayerApp.MAIN_CONTROLLER.q.add(currSong);
+            MusicPlayerApp.MAIN_CONTROLLER.getLayout();
         }
     }
 
@@ -119,14 +120,12 @@ public class Playlist {
     }
 
     public VBox getVBox() {
-        System.out.println(isPlaying);
 
         // Declare buttons at the top so i can pass them into the playlist.empty easier
         Button prevButton = new Button("Previous");
         Button nextButton = new Button("Next");
         if (layout != null) {
             layout.getChildren().clear();
-            System.out.println("layout cleared...");
         }
 
         if (playlist.isEmpty()){
@@ -138,7 +137,6 @@ public class Playlist {
 
         int index = 0;
         for (Song song : playlist) {
-            System.out.println("PROCESSING... " + song.getName());
             Label songName = new Label(song.getName());
 
             int finalIndex = index;
@@ -177,11 +175,11 @@ public class Playlist {
             if (!playlistName.equals("main playlist")) {
                 // create a menu
                 ContextMenu contextMenu = new ContextMenu();
+                Song clickedSong = playlist.get(clickedIndex);
 
                 // create menu items
                 MenuItem delete = new MenuItem("Delete this song?");
                 delete.setOnAction(event -> {
-                    Song clickedSong = playlist.get(clickedIndex);
 
                     // reset and remove song
                     clickedSong.reset();
@@ -196,8 +194,16 @@ public class Playlist {
                     getVBox();
                 });
 
+                // menu item for adding song to queue
+                MenuItem add = new MenuItem("Add song to queue?");
+                add.setOnAction(event -> {
+                    MusicPlayerApp.MAIN_CONTROLLER.q.add(clickedSong);
+                    MusicPlayerApp.MAIN_CONTROLLER.getSongsInQueue();
+                });
+
                 // add menu items to menu
                 contextMenu.getItems().add(delete);
+                contextMenu.getItems().add(add);
 
                 contextMenu.show(e.getPickResult().getIntersectedNode(), e.getScreenX(), e.getScreenY());
             }

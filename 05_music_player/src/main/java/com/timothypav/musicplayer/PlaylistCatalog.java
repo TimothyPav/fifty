@@ -112,7 +112,6 @@ public class PlaylistCatalog {
     }
 
     public VBox getLayout() {
-        System.out.println("CATALOG GET_LAYOUT");
         if (layout != null)
             layout.getChildren().clear();
 

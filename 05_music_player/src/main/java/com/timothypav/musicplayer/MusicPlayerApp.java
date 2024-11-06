@@ -16,11 +16,10 @@ public class MusicPlayerApp extends Application {
     public static double VOLUME = 0.1;
     public final static File SONGS_DIRECTORY = new File("./songs");
     public static PlaylistCatalog PLAYLIST_CATALOG = null;
+    public static MainController MAIN_CONTROLLER = new MainController();
 
     public void listFilesInDirectory(final File folder, Playlist playlist) {
         for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
-            System.out.println(fileEntry.getAbsolutePath());
-            System.out.println(fileEntry.getName());
             Song song = new Song(fileEntry.getAbsolutePath(), fileEntry.getName());
             playlist.addSong(song);
         }
@@ -41,8 +40,9 @@ public class MusicPlayerApp extends Application {
 
         VBox mainControls = new VBox(PLAYLIST_CATALOG.getLayout());
 
+
         // Layout with buttons
-        HBox root = new HBox(songSearch.getLayout(), mainControls);
+        HBox root = new HBox(songSearch.getLayout(), mainControls, MAIN_CONTROLLER.getLayout());
 
         Scene scene = new Scene(root, 1000, 800);
         stage.setTitle("Music Player");

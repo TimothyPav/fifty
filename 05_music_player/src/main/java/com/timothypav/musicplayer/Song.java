@@ -47,8 +47,6 @@ public class Song {
     }
 
     public void reset(){
-        // TODO: fix this from setting isPlaying to false when you play any song
-        System.out.println("RESET WAS CALLED AND SET isPlaying TO FALSE");
         Playlist.isPlaying = false;
         songPlayer.stop();
     }
@@ -94,7 +92,6 @@ public class Song {
         VBox mediaControls = new VBox(mediaButtons, mediaBars);
 
         layout.getChildren().add(mediaControls);
-        System.out.println("UPDATED");
         return layout;
     }
 
