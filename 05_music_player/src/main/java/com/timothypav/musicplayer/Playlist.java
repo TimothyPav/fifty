@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import javafx.scene.control.Label;
 
 public class Playlist {
-    public static boolean isPlaying = false;
 
     private final ArrayList<Song> playlist;
     private String playlistName;
@@ -60,12 +59,10 @@ public class Playlist {
         if (getSize() > index) {
             currentIndex = index;
             Song currSong = playlist.get(currentIndex);
-            isPlaying = true;
             currSong.play();
             currSong.getMediaPlayer().setOnEndOfMedia(() -> {
                 playSong(currentIndex + 1);
             });
-            MusicPlayerApp.MAIN_CONTROLLER.q.add(currSong);
             MusicPlayerApp.MAIN_CONTROLLER.getLayout();
         }
     }
@@ -88,7 +85,6 @@ public class Playlist {
             currentIndex = 0;
 
         getVBox();
-        isPlaying = true;
         playSong(currentIndex);
     }
 
@@ -100,12 +96,10 @@ public class Playlist {
             currentIndex = 0;
 
         getVBox();
-        isPlaying = true;
         playSong(currentIndex);
     }
 
     public void playAll() {
-        isPlaying = true;
         playSong(0);
     }
 
@@ -117,6 +111,10 @@ public class Playlist {
 
     public ArrayList<Song> getPlaylist(){
         return playlist;
+    }
+
+    public Song getSong(int i){
+        return playlist.get(i);
     }
 
     public VBox getVBox() {
@@ -168,7 +166,7 @@ public class Playlist {
                 currentSong().reset();
             } catch (NullPointerException ignored) {}
             currentIndex = clickedIndex;
-            isPlaying = true;
+            MusicPlayerApp.MAIN_CONTROLLER.resetMainQ(playlist, clickedIndex);
             getVBox();
             playSong(currentIndex);
         } else if (e.getButton() == MouseButton.SECONDARY) {
@@ -197,7 +195,7 @@ public class Playlist {
                 // menu item for adding song to queue
                 MenuItem add = new MenuItem("Add song to queue?");
                 add.setOnAction(event -> {
-                    MusicPlayerApp.MAIN_CONTROLLER.q.add(clickedSong);
+                    MusicPlayerApp.MAIN_CONTROLLER.mainQ.add(clickedSong);
                     MusicPlayerApp.MAIN_CONTROLLER.getSongsInQueue();
                 });
 

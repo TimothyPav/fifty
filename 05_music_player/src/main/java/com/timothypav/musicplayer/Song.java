@@ -37,17 +37,17 @@ public class Song {
     }
 
     public void pause(){
-        Playlist.isPlaying = false;
+        MainController.isPlaying = false;
         songPlayer.pause();
     }
     public void play(){
         PlaylistCatalog.resetAllSongs(this.songPlayer);
-        Playlist.isPlaying = true;
+        MainController.isPlaying = true;
         songPlayer.play();
     }
 
     public void reset(){
-        Playlist.isPlaying = false;
+        MainController.isPlaying = false;
         songPlayer.stop();
     }
 
@@ -76,7 +76,7 @@ public class Song {
         playPauseButton = new Button("Play");
         updatePlayPauseButton();
         playPauseButton.setOnAction(e -> {
-            if (Playlist.isPlaying) {
+            if (MainController.isPlaying) {
                 pause();
             }
             else {
@@ -96,7 +96,7 @@ public class Song {
     }
 
     private void updatePlayPauseButton() {
-        if (Playlist.isPlaying) {
+        if (MainController.isPlaying) {
             playPauseButton.setText("Pause");
             // Optionally add an icon or style
 //             playPauseButton.setGraphic(new ImageView(pauseIcon));
