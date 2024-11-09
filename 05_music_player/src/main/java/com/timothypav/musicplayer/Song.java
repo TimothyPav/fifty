@@ -1,5 +1,6 @@
 package com.timothypav.musicplayer;
 
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -22,6 +23,7 @@ public class Song {
     private VolumeBar volumeBar;
     private HBox layout;
     private Button playPauseButton;
+    private SimpleDoubleProperty progress = new SimpleDoubleProperty(0);
 
     public Song(String file, String name){
         Media song = new Media(new File(file).toURI().toString());
@@ -30,6 +32,21 @@ public class Song {
         this.playbackBar = new PlaybackBar(songPlayer);
         this.volumeBar = new VolumeBar(songPlayer);
         this.layout = new HBox();
+
+        // initialize function that updates progress everytime it changes
+        setupProgressListener();
+    }
+
+    private void setupProgressListener() {
+        songPlayer.currentTimeProperty().addListener((observableValue, oldValue, newValue) -> {
+            double current = newValue.toMinutes();
+            double total = songPlayer.getTotalDuration().toMinutes();
+            if (current / total > 0.999){
+                reset();
+                MusicPlayerApp.MAIN_CONTROLLER.mainIndex++;
+                MusicPlayerApp.MAIN_CONTROLLER.getLayout();
+            }
+        });
     }
 
     public void setSong(Media song){

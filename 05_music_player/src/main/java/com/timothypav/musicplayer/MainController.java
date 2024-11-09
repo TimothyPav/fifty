@@ -8,6 +8,7 @@ import java.util.*;
 
 public class MainController {
     private VBox layout;
+    private Song dummy;
 
     public Song currentSong;
     public List<Song> mainQ;
@@ -18,6 +19,7 @@ public class MainController {
         layout = new VBox();
 
         currentSong = new Song("/home/tim/projects/fifty/05_music_player/dummy.mp3", "dummy.mp3");
+        dummy = currentSong;
         mainQ = new ArrayList<>();
     }
 
@@ -49,8 +51,11 @@ public class MainController {
         if (layout.getChildren() != null)
             layout.getChildren().clear();
 
-        if (mainQ.isEmpty()){
+        if (mainQ.isEmpty() || mainIndex >= mainQ.size()){
             Label empty = new Label("No song selected");
+            Button p = new Button("Previous");
+            Button n = new Button("Next");
+            layout.getChildren().add(dummy.getLayout(p, n));
             layout.getChildren().add(empty);
         }
         else {

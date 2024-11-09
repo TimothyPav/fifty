@@ -196,7 +196,7 @@ public class Playlist {
                 MenuItem add = new MenuItem("Add song to queue?");
                 add.setOnAction(event -> {
                     MusicPlayerApp.MAIN_CONTROLLER.mainQ.add(clickedSong);
-                    MusicPlayerApp.MAIN_CONTROLLER.getSongsInQueue();
+                    MusicPlayerApp.MAIN_CONTROLLER.getLayout();
                 });
 
                 // add menu items to menu

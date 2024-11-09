@@ -21,6 +21,8 @@ public class PlaybackBar {
             double value = newValue.toMinutes();
             double total_duration = mediaPlayer.getTotalDuration().toMinutes();
             double progress = value/total_duration;
+            if (progress > 0.999)
+                System.out.println("COMPLETED");
             setTime(progress);
         });
     }
