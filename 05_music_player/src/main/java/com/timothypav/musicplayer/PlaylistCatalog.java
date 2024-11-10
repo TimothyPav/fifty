@@ -21,17 +21,23 @@ public class PlaylistCatalog {
     private Button newPlaylist;
     private Button deletePlaylist;
 
-    public PlaylistCatalog(Playlist playlist){
+    public PlaylistCatalog(Playlist playlist) {
         playlistCatalog.add(playlist);
 
         layout = new VBox();
+        layout.getStyleClass().add("playlist-catalog-container");
+
         playlistChoice = new ComboBox<>();
+        playlistChoice.getStyleClass().add("playlist-selector");
         playlistChoice.setValue(playlistCatalog.get(0));
         playlistChoice.setOnAction(this::handleChange);
+
         newPlaylist = new Button("+");
+        newPlaylist.getStyleClass().add("playlist-control-button");
         newPlaylist.setOnAction(e -> handleMakePlaylist());
 
         deletePlaylist = new Button("-");
+        deletePlaylist.getStyleClass().add("playlist-control-button");
         deletePlaylist.setOnMouseClicked(this::handleDeletePlaylist);
     }
 
@@ -115,15 +121,21 @@ public class PlaylistCatalog {
         if (layout != null)
             layout.getChildren().clear();
 
-//        setPlaylists();
+        // Style the components
+        layout.getStyleClass().add("playlist-catalog-container");
+
+        playlistChoice.getStyleClass().add("playlist-selector");
+
+        newPlaylist.getStyleClass().add("playlist-control-button");
+        deletePlaylist.getStyleClass().add("playlist-control-button");
 
         HBox playlistControls = new HBox(playlistChoice, newPlaylist, deletePlaylist);
+        playlistControls.getStyleClass().add("playlist-controls");
 
         layout.getChildren().add(playlistControls);
 
-        // get playlist from combo box and cast to playlist object
         Playlist selectedPlaylist = (Playlist) playlistChoice.getValue();
-        if (selectedPlaylist != null) {  // Add this null check
+        if (selectedPlaylist != null) {
             layout.getChildren().add(selectedPlaylist.getVBox());
         }
 

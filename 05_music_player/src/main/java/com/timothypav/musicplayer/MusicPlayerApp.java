@@ -27,24 +27,41 @@ public class MusicPlayerApp extends Application {
 
     @Override
     public void start(Stage stage) {
-
+        // Initialize playlists
         Playlist playlist = new Playlist("main playlist");
         listFilesInDirectory(SONGS_DIRECTORY, playlist);
         PLAYLIST_CATALOG = new PlaylistCatalog(playlist);
-
         Playlist playlist1 = new Playlist("second playlist");
         listFilesInDirectory(SONGS_DIRECTORY, playlist1);
         PLAYLIST_CATALOG.addToPlaylistCatalog(playlist1);
 
+        // Initialize components
         SongSearch songSearch = new SongSearch(playlist);
 
+        // Create main layout containers
         VBox mainControls = new VBox(PLAYLIST_CATALOG.getLayout());
+        mainControls.getStyleClass().add("middle-section");
 
+        // Create containers for right section (queue)
+        VBox queueContainer = new VBox();
+        queueContainer.getStyleClass().add("right-section");
+        queueContainer.getChildren().add(MAIN_CONTROLLER.queue);
 
-        // Layout with buttons
-        HBox root = new HBox(songSearch.getLayout(), mainControls, MAIN_CONTROLLER.getLayout());
+        // Top section with three columns
+        HBox topContent = new HBox(songSearch.getLayout(), mainControls, queueContainer);
+        topContent.getStyleClass().add("top-content");
 
+        // Bottom controls section
+        VBox bottomControls = new VBox(MAIN_CONTROLLER.songControls);
+        bottomControls.getStyleClass().add("bottom-controls");
+
+        // Main root container
+        VBox root = new VBox(topContent, bottomControls);
+        root.getStyleClass().add("root-container");
+
+        // Create and show scene
         Scene scene = new Scene(root, 1000, 800);
+        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
         stage.setTitle("Music Player");
         stage.setScene(scene);
         stage.show();

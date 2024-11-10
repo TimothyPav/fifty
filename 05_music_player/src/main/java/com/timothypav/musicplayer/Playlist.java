@@ -21,18 +21,6 @@ public class Playlist {
     private int currentIndex = 0;
     private VBox layout;
 
-    private HBox getMusicControls(Button previous, Button next){
-        try {
-            return currentSong().getLayout(previous, next);
-        } catch (NullPointerException e){
-            Song dummy = new Song("/home/tim/projects/fifty/05_music_player/dummy.mp3", "dummy.mp3");
-            Button dummyPrevious = new Button("Previous");
-            Button dummyNext = new Button("Next");
-
-            return dummy.getLayout(dummyPrevious, dummyNext);
-        }
-    }
-
     public Playlist(String name) {
         playlist = new ArrayList<Song>();
         playlistName = name;
@@ -118,40 +106,52 @@ public class Playlist {
     }
 
     public VBox getVBox() {
+        // Main container styling
+        this.layout = new VBox(10); // Add spacing between elements
+        layout.getStyleClass().add("playlist-container");
 
-        // Declare buttons at the top so i can pass them into the playlist.empty easier
+        // Style the buttons
         Button prevButton = new Button("Previous");
         Button nextButton = new Button("Next");
-        if (layout != null) {
-            layout.getChildren().clear();
-        }
+        prevButton.getStyleClass().add("control-button");
+        nextButton.getStyleClass().add("control-button");
 
-        if (playlist.isEmpty()){
+        if (playlist.isEmpty()) {
             Label noSongs = new Label("No songs in this playlist");
+            noSongs.getStyleClass().add("no-songs-label");
             layout.getChildren().add(noSongs);
-            layout.getChildren().add(getMusicControls(prevButton, nextButton));
+
             return layout;
         }
+
+        // Add playlist header
+        Label playlistLabel = new Label(playlistName);
+        playlistLabel.getStyleClass().add("playlist-header");
+        layout.getChildren().add(playlistLabel);
+
+        // Songs container
+        VBox songsContainer = new VBox(5); // 5px spacing between songs
+        songsContainer.getStyleClass().add("songs-container");
 
         int index = 0;
         for (Song song : playlist) {
             Label songName = new Label(song.getName());
+            songName.getStyleClass().add("playlist-song");
+
+            // Debug print
 
             int finalIndex = index;
             songName.setOnMouseClicked(e -> handleSongClick(e, finalIndex));
-
-            if (index == currentIndex)
-                songName.setStyle("-fx-background-color: #e0e0e0; -fx-font-weight: bold;");
-            songName.setStyle(songName.getStyle() + "-fx-cursor: hand;");
-
-            layout.getChildren().add(songName);
+            songsContainer.getChildren().add(songName);
             index++;
         }
-        prevButton.setOnAction(e -> playPrevious());
 
+        layout.getChildren().add(songsContainer);
+
+
+        prevButton.setOnAction(e -> playPrevious());
         nextButton.setOnAction(e -> playNext());
-        HBox songControls = new HBox(getMusicControls(prevButton, nextButton));
-        layout.getChildren().add(songControls);
+
         return layout;
     }
 
@@ -166,16 +166,17 @@ public class Playlist {
                 currentSong().reset();
             } catch (NullPointerException ignored) {}
             currentIndex = clickedIndex;
-            MusicPlayerApp.MAIN_CONTROLLER.resetMainQ(playlist, clickedIndex);
-            getVBox();
-            playSong(currentIndex);
-        } else if (e.getButton() == MouseButton.SECONDARY) {
-            if (!playlistName.equals("main playlist")) {
-                // create a menu
-                ContextMenu contextMenu = new ContextMenu();
-                Song clickedSong = playlist.get(clickedIndex);
 
-                // create menu items
+            getVBox();
+            MusicPlayerApp.MAIN_CONTROLLER.resetMainQ(playlist, clickedIndex);
+            playSong(currentIndex);
+
+        } else if (e.getButton() == MouseButton.SECONDARY) {
+            // create a menu
+            ContextMenu contextMenu = new ContextMenu();
+            Song clickedSong = playlist.get(clickedIndex);
+
+            if (!playlistName.equals("main playlist")) {
                 MenuItem delete = new MenuItem("Delete this song?");
                 delete.setOnAction(event -> {
 
@@ -191,20 +192,19 @@ public class Playlist {
 
                     getVBox();
                 });
-
-                // menu item for adding song to queue
-                MenuItem add = new MenuItem("Add song to queue?");
-                add.setOnAction(event -> {
-                    MusicPlayerApp.MAIN_CONTROLLER.mainQ.add(clickedSong);
-                    MusicPlayerApp.MAIN_CONTROLLER.getLayout();
-                });
-
-                // add menu items to menu
                 contextMenu.getItems().add(delete);
-                contextMenu.getItems().add(add);
-
-                contextMenu.show(e.getPickResult().getIntersectedNode(), e.getScreenX(), e.getScreenY());
             }
+
+            // menu item for adding song to queue
+            MenuItem add = new MenuItem("Add song to queue?");
+            add.setOnAction(event -> {
+                MusicPlayerApp.MAIN_CONTROLLER.mainQ.add(clickedSong);
+                MusicPlayerApp.MAIN_CONTROLLER.getLayout();
+            });
+
+            // add menu items to menu
+            contextMenu.getItems().add(add);
+            contextMenu.show(e.getPickResult().getIntersectedNode(), e.getScreenX(), e.getScreenY());
         }
     }
 

@@ -3,6 +3,8 @@ package com.timothypav.musicplayer;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -10,41 +12,85 @@ import javafx.stage.Stage;
 import java.util.*;
 
 public class SongSearch {
+    private final Playlist songsFolder;
     private final Trie trie;
     private final VBox layout;
     private final VBox songNames;
     private final TextField songField;
     private final HashMap<Label, Boolean> songs;
 
-    private void onChange(String newValue){
+    private void onChange(String newValue) {
         Set<String> words = this.trie.getWordsWithPrefix(newValue);
-        if (this.songNames != null)
+        if (this.songNames != null) {
             this.songNames.getChildren().clear();
-        for (Label label : songs.keySet()){
-            if (words.contains(label.getText())) {
-                assert songNames != null;
-                songNames.getChildren().add(label);
+            // Rebuild song sections for matching songs
+            for (Label label : songs.keySet()) {
+                if (words.contains(label.getText())) {
+                    // Recreate the full song section
+                    HBox songSection = new HBox();
+                    songSection.getStyleClass().add("song-section");
+
+                    // Create new button (since the old one was cleared)
+                    Button addSong = new Button("+");
+                    addSong.getStyleClass().add("add-song-button");
+
+                    // Find the corresponding Song object to set up the button action
+                    for (Song song : songsFolder.getPlaylist()) {
+                        if (song.getName().equals(label.getText())) {
+                            addSong.setOnAction(e -> addToPlaylist(song));
+                            break;
+                        }
+                    }
+
+                    // Add spacer for right alignment
+                    Region spacer = new Region();
+                    HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                    // Add all components
+                    songSection.getChildren().addAll(label, spacer, addSong);
+                    songNames.getChildren().add(songSection);
+                }
             }
         }
-        System.out.println(songs.toString());
     }
 
     public SongSearch(Playlist songsFolder){
+        this.songsFolder = songsFolder;
         trie = new Trie();
         Label songSearch = new Label("Song Search");
+        songSearch.getStyleClass().add("search-header");
+
         songField = new TextField();
+        songField.getStyleClass().add("search-field");
+
         songNames = new VBox();
+        songNames.getStyleClass().add("song-list");
+
         layout = new VBox(songSearch, songField, songNames);
+        layout.getStyleClass().add("search-container");
+
         songs = new HashMap<>();
         for (Song song : songsFolder.getPlaylist()){
             Label songName = new Label(song.getName());
+            songName.getStyleClass().add("song-name");
+
             Button addSong = new Button("+");
+            addSong.getStyleClass().add("add-song-button");
 
             addSong.setOnAction(e -> addToPlaylist(song));
 
             trie.insert(song.getName());
             songs.put(songName, true);
-            HBox songSection = new HBox(songName, addSong);
+
+            HBox songSection = new HBox();
+            songSection.getStyleClass().add("song-section");
+
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+
+            // Add components with spacer to push button right
+            songSection.getChildren().addAll(songName, spacer, addSong);
+
             songNames.getChildren().add(songSection);
         }
         songField.textProperty().addListener((observable, oldValue, newValue) -> {

@@ -1,0 +1,302 @@
+.root-container {
+    -fx-background-color: white;
+    -fx-spacing: 0;
+}
+
+.top-content {
+    -fx-spacing: 10;
+    -fx-padding: 10;
+    -fx-alignment: top-center;
+    -fx-pref-height: 700; /* Adjust based on your needs */
+}
+
+.queue-and-controls {
+    -fx-alignment: top-center;
+    -fx-spacing: 10;
+}
+
+.bottom-controls {
+    -fx-alignment: center;
+    -fx-padding: 20;
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1 0 0 0;
+    -fx-spacing: 10;
+}
+
+.search-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-pref-width: 300px; /* Fixed width */
+    -fx-min-width: 300px;  /* Ensures it doesn't get smaller */
+    -fx-max-width: 300px;  /* Ensures it doesn't get larger */
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+}
+
+/* Search header/title */
+.search-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Search text field */
+.search-field {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+    -fx-pref-width: 270px; /* Slightly less than container to account for padding */
+}
+
+.search-field:focused {
+    -fx-border-color: #2196F3;
+    -fx-background-color: white;
+}
+
+/* Song list container */
+.song-list {
+    -fx-spacing: 5px;
+}
+
+/* Individual song row */
+.song-section {
+    -fx-spacing: 10px;
+    -fx-padding: 5px;
+    -fx-alignment: center-left;
+    -fx-pref-width: 270px; /* Match text field width */
+}
+
+
+.song-section:hover {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Song name label */
+.song-name {
+    -fx-font-size: 14px;
+    -fx-padding: 5px 0;
+    -fx-pref-width: 230px; /* Give most space to the name */
+    -fx-max-width: 230px;
+}
+
+/* Add song button (+) */
+.add-song-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-min-width: 24px;
+    -fx-min-height: 24px;
+    -fx-background-radius: 12px;
+    -fx-padding: 0 0 1px 0;
+    -fx-font-weight: bold;
+}
+
+.add-song-button:hover {
+    -fx-background-color: #1976D2;
+}
+
+.add-song-button:pressed {
+    -fx-background-color: #0D47A1;
+}
+
+/* Playlist container */
+.playlist-container {
+    -fx-background-color: white;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-min-width: 300px;
+    -fx-pref-width: 300px;
+    -fx-max-width: 300px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+}
+
+/* Playlist header */
+.playlist-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Songs container */
+.songs-container {
+    -fx-spacing: 5px;
+    -fx-padding: 10px 0;
+}
+
+/* Individual song in playlist */
+.playlist-song {
+    -fx-padding: 8px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-background-color: transparent; /* explicit default background */
+}
+
+.playlist-song:hover {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Currently playing song */
+.currently-playing {
+    -fx-background-color: #e3f2fd;
+    -fx-font-weight: bold;
+}
+
+/* No songs label */
+.no-songs-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #757575;
+    -fx-padding: 20px 0;
+}
+
+/* Controls container */
+.controls-container {
+    -fx-spacing: 10px;
+    -fx-padding: 10px 0;
+    -fx-alignment: center;
+}
+
+/* Control buttons */
+.control-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4px;
+}
+
+.control-button:hover {
+    -fx-background-color: #1976D2;
+}
+
+.control-button:pressed {
+    -fx-background-color: #0D47A1;
+}
+
+.playlist-catalog-container {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+/* Controls container */
+.playlist-controls {
+    -fx-spacing: 8px;
+    -fx-padding: 5px;
+    -fx-alignment: center-left;
+}
+
+/* Playlist dropdown */
+.playlist-selector {
+    -fx-min-width: 200px;
+    -fx-pref-width: 200px;
+    -fx-max-width: 200px;
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 4px;
+}
+
+.playlist-selector .list-cell {
+    -fx-padding: 4px 8px;
+}
+
+.playlist-selector:hover {
+    -fx-border-color: #2196F3;
+}
+
+/* Control buttons (+ and -) */
+.playlist-control-button {
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-padding: 0;
+    -fx-content-display: center;
+    -fx-alignment: center;
+}
+
+.playlist-control-button:hover {
+    -fx-background-color: #1976D2;
+}
+
+.playlist-control-button:pressed {
+    -fx-background-color: #0D47A1;
+}
+
+.queue-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-min-width: 250px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+
+/* Current song label */
+.current-song-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 0;
+    -fx-text-fill: #2196F3;
+}
+
+/* Queue list */
+.queue-list {
+    -fx-spacing: 5px;
+    -fx-padding: 10px 0;
+}
+
+/* Individual queued songs */
+.queued-song {
+    -fx-padding: 5px;
+    -fx-font-size: 13px;
+    -fx-text-fill: #666666;
+}
+
+.queued-song:hover {
+    -fx-background-color: #f5f5f5;
+    -fx-cursor: hand;
+}
+
+/* No song selected label */
+.no-song-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #757575;
+    -fx-padding: 10px 0;
+}
+
+/* Controls container at bottom */
+.controls-container {
+    -fx-alignment: center;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* Control buttons */
+.control-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-min-width: 80px;
+    -fx-min-height: 30px;
+    -fx-background-radius: 4px;
+    -fx-font-size: 13px;
+}
+
+.control-button:hover {
+    -fx-background-color: #1976D2;
+}
+
+.control-button:pressed {
+    -fx-background-color: #0D47A1;
+}
