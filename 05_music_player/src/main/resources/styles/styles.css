@@ -300,3 +300,118 @@
 .control-button:pressed {
     -fx-background-color: #0D47A1;
 }
+
+/* Main media layout */
+.media-layout {
+    -fx-padding: 15px;
+    -fx-spacing: 20px;
+    -fx-alignment: bottom-center;
+    -fx-pref-width: 100%;
+}
+
+/* Controls container */
+.controls-container {
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+    -fx-pref-width: 800px; /* Adjust based on your app width */
+}
+
+/* Playback container */
+.playback-container {
+    -fx-padding: 0 0 10 0;
+    -fx-pref-width: 100%;
+    -fx-alignment: center;
+}
+
+/* Volume container */
+.volume-container {
+    -fx-alignment: bottom-center;
+    -fx-padding: 0 10px;
+    -fx-pref-height: 150px; /* Adjust height as needed */
+}
+
+/* Media buttons container */
+.media-buttons {
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+    -fx-padding: 5px 0;
+}
+
+/* Slider styles for playback */
+.playback-slider .track {
+    -fx-background-color: #e0e0e0;
+    -fx-pref-height: 4px;
+    -fx-min-width: 800px; /* Make slider very wide */
+}
+
+.playback-slider .thumb {
+    -fx-background-color: #2196F3;
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px;
+}
+
+/* Volume slider vertical styling */
+.volume-slider {
+    -fx-orientation: vertical;
+}
+
+.volume-slider .track {
+    -fx-background-color: #e0e0e0;
+    -fx-pref-width: 4px;
+    -fx-pref-height: 100px; /* Make vertical slider tall */
+}
+
+.volume-slider .thumb {
+    -fx-background-color: #2196F3;
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px;
+}
+
+/* Button styles remain the same */
+.nav-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-min-width: 80px;
+    -fx-min-height: 30px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.play-pause-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-min-width: 80px;
+    -fx-min-height: 30px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.nav-button:hover, .play-pause-button:hover {
+    -fx-background-color: #1976D2;
+}
+
+.nav-button:pressed, .play-pause-button:pressed {
+    -fx-background-color: #0D47A1;
+}
+
+/* Progress bar styling */
+.progress-bar {
+    -fx-pref-width: 800px;
+    -fx-min-height: 15px;  /* Make it taller */
+    -fx-max-height: 15px;
+}
+
+.progress-bar > .track {
+    -fx-background-color: #e0e0e0;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: #2196F3;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}

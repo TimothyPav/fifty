@@ -18,10 +18,11 @@ public class VolumeBar {
     public VolumeBar(MediaPlayer mediaPlayer){
         volumeBar = new ScrollBar();
         this.mediaPlayer = mediaPlayer;
+        volumeBar.getStyleClass().addAll("volume-slider");
         volumeBar.setMin(0);
         volumeBar.setMax(.5);
         volumeBar.setValue(MusicPlayerApp.VOLUME);
-        volumeBar.setOrientation(Orientation.HORIZONTAL);
+        volumeBar.setOrientation(Orientation.VERTICAL);
         volumeBar.setUnitIncrement(.001);
         volumeBar.setBlockIncrement(.001);
         mediaPlayer.setVolume(MusicPlayerApp.VOLUME);

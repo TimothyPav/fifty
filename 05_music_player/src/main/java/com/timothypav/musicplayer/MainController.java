@@ -75,7 +75,6 @@ public class MainController {
             // Song selected state
             handleActiveQueue(prevButton, nextButton);
         }
-
         return queue;
     }
 

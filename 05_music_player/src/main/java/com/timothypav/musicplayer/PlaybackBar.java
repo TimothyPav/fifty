@@ -29,8 +29,11 @@ public class PlaybackBar {
 
     public PlaybackBar(MediaPlayer mediaPlayer){
         bar = new ProgressBar(0);
+        bar.setPrefWidth(800);  // Set preferred width explicitly
+        bar.setMinHeight(15);   // Set minimum height explicitly
+        bar.setMaxHeight(15);   // Set maximum height explicitly
+        bar.getStyleClass().addAll("progress-bar");
         this.mediaPlayer = mediaPlayer;
-
         bar.setOnMouseClicked(this::handleMouseClick);
         setupTimeListener();
     }

@@ -88,9 +88,12 @@ public class Song {
         if (layout != null)
             layout.getChildren().clear();
 
+        layout.getStyleClass().add("media-layout");
         volumeBar.setVolume();
 
+        // Style play/pause button
         playPauseButton = new Button("Play");
+        playPauseButton.getStyleClass().add("play-pause-button");
         updatePlayPauseButton();
         playPauseButton.setOnAction(e -> {
             if (MainController.isPlaying) {
@@ -102,13 +105,27 @@ public class Song {
             updatePlayPauseButton();
         });
 
+        prev.getStyleClass().add("nav-button");
+        next.getStyleClass().add("nav-button");
+
+        // Create main controls container
         HBox mediaButtons = new HBox(prev, playPauseButton, next);
+        mediaButtons.getStyleClass().add("media-buttons");
 
-        HBox mediaBars = new HBox(playbackBar.getBar(), volumeBar.getScrollBar());
+        // Create container for playback bar
+        VBox playbackContainer = new VBox(playbackBar.getBar());
+        playbackContainer.getStyleClass().add("playback-container");
 
-        VBox mediaControls = new VBox(mediaButtons, mediaBars);
+        // Create container for volume control
+        VBox volumeContainer = new VBox(volumeBar.getScrollBar());
+        volumeContainer.getStyleClass().add("volume-container");
 
-        layout.getChildren().add(mediaControls);
+        // Main horizontal container for all controls
+        VBox controlsContainer = new VBox(playbackContainer, mediaButtons);
+        controlsContainer.getStyleClass().add("controls-container");
+
+        // Add everything to main layout
+        layout.getChildren().addAll(controlsContainer, volumeContainer);
         return layout;
     }
 

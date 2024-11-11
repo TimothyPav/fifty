@@ -52,7 +52,8 @@ public class MusicPlayerApp extends Application {
         topContent.getStyleClass().add("top-content");
 
         // Bottom controls section
-        VBox bottomControls = new VBox(MAIN_CONTROLLER.songControls);
+        MAIN_CONTROLLER.getLayout();
+        VBox bottomControls = MAIN_CONTROLLER.songControls;
         bottomControls.getStyleClass().add("bottom-controls");
 
         // Main root container
