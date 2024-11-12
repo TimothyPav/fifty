@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/tim/projects/fifty/06_sudoku_solver/build",
+  "command": "/usr/bin/c++  -I/home/tim/projects/fifty/06_sudoku_solver/include -std=gnu++17 -o CMakeFiles/solve.dir/src/main.cpp.o -c /home/tim/projects/fifty/06_sudoku_solver/src/main.cpp",
+  "file": "/home/tim/projects/fifty/06_sudoku_solver/src/main.cpp",
+  "output": "CMakeFiles/solve.dir/src/main.cpp.o"
+}
+]
