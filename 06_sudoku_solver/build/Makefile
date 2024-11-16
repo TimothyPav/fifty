@@ -129,6 +129,30 @@ solve/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/solve.dir/build.make CMakeFiles/solve.dir/build
 .PHONY : solve/fast
 
+src/SudokuBoard.o: src/SudokuBoard.cpp.o
+.PHONY : src/SudokuBoard.o
+
+# target to build an object file
+src/SudokuBoard.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solve.dir/build.make CMakeFiles/solve.dir/src/SudokuBoard.cpp.o
+.PHONY : src/SudokuBoard.cpp.o
+
+src/SudokuBoard.i: src/SudokuBoard.cpp.i
+.PHONY : src/SudokuBoard.i
+
+# target to preprocess a source file
+src/SudokuBoard.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solve.dir/build.make CMakeFiles/solve.dir/src/SudokuBoard.cpp.i
+.PHONY : src/SudokuBoard.cpp.i
+
+src/SudokuBoard.s: src/SudokuBoard.cpp.s
+.PHONY : src/SudokuBoard.s
+
+# target to generate assembly for a file
+src/SudokuBoard.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solve.dir/build.make CMakeFiles/solve.dir/src/SudokuBoard.cpp.s
+.PHONY : src/SudokuBoard.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -162,6 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... solve"
+	@echo "... src/SudokuBoard.o"
+	@echo "... src/SudokuBoard.i"
+	@echo "... src/SudokuBoard.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

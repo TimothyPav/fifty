@@ -8,6 +8,6 @@ find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
 include_directories(include/)
 
-add_executable(solve src/main.cpp)
+add_executable(solve src/main.cpp src/SudokuBoard.cpp)
 
 target_link_libraries(solve PRIVATE sfml-graphics sfml-window sfml-system)

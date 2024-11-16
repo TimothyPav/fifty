@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/solve.dir/src/SudokuBoard.cpp.o"
+  "CMakeFiles/solve.dir/src/SudokuBoard.cpp.o.d"
   "CMakeFiles/solve.dir/src/main.cpp.o"
   "CMakeFiles/solve.dir/src/main.cpp.o.d"
   "solve"

@@ -1,28 +1,32 @@
-#include <iostream>
+#include "SudokuBoard.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(500, 500), "Sudoku Solver", sf::Style::Close | sf::Style::Titlebar);
-    sf::RectangleShape player(sf::Vector2f(100.0f, 100.0f));
-    player.setFillColor(sf::Color::Red);
+  sf::RenderWindow window(sf::VideoMode(540, 540), "Sudoku");
 
-    
-    while(window.isOpen())
-    {
-        sf::Event evnt;
-        while(window.pollEvent(evnt))
-        {
-            switch(evnt.type)
-            {
-            case sf::Event::Closed:
-                window.close();
-                break; 
-            }
-        }
+  try {
+    SudokuBoard sudokuBoard(window);
 
-        window.draw(player);
-        window.display();
+    sudokuBoard.setValue(0, 0, 5);
+    sudokuBoard.setValue(0, 1, 3);
+    sudokuBoard.setValue(1, 4, 9);
+
+    sudokuBoard.draw();
+    window.display();
+
+    while (window.isOpen()) {
+      sf::Event event;
+      while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed)
+          window.close();
+      }
     }
 
-    return 0;
+
+  } catch (const std::exception& e) {
+      return 1;
+  }
+
+  return 0;
 }

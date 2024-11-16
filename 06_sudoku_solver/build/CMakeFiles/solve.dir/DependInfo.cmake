@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/tim/projects/fifty/06_sudoku_solver/src/SudokuBoard.cpp" "CMakeFiles/solve.dir/src/SudokuBoard.cpp.o" "gcc" "CMakeFiles/solve.dir/src/SudokuBoard.cpp.o.d"
   "/home/tim/projects/fifty/06_sudoku_solver/src/main.cpp" "CMakeFiles/solve.dir/src/main.cpp.o" "gcc" "CMakeFiles/solve.dir/src/main.cpp.o.d"
   )
 

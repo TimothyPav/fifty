@@ -1,5 +1,5 @@
-CMakeFiles/solve.dir/src/main.cpp.o: \
- /home/tim/projects/fifty/06_sudoku_solver/src/main.cpp \
+CMakeFiles/solve.dir/src/SudokuBoard.cpp.o: \
+ /home/tim/projects/fifty/06_sudoku_solver/src/SudokuBoard.cpp \
  /usr/include/stdc-predef.h \
  /home/tim/projects/fifty/06_sudoku_solver/include/SudokuBoard.h \
  /usr/include/SFML/Graphics.hpp /usr/include/SFML/Window.hpp \
