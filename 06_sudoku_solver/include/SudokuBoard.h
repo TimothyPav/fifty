@@ -28,6 +28,8 @@ public:
     void setValue(int row, int col, int value);
     void draw();
     sf::Vector2i getCellFromPosition(int x, int y);
+    bool checkPossible(int row, int col, int value);
+    bool solveBacktrack(int row, int col);
 };
 
 #endif // SUDOKU_BOARD_H

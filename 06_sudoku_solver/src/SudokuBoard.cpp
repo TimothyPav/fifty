@@ -1,5 +1,6 @@
 #include "SudokuBoard.h"
 #include <iostream>
+#include <cmath>
 
 void SudokuBoard::drawGridLines() {
     // HORIZONTAL LINES
@@ -75,3 +76,65 @@ void SudokuBoard::draw() {
 sf::Vector2i SudokuBoard::getCellFromPosition(int x, int y) {
     return sf::Vector2i(x / CELL_SIZE, y / CELL_SIZE);
 }
+
+bool SudokuBoard::checkPossible(int row, int col, int value){
+    // check row and col where program wants to place value
+    for (int i = 0; i < GRID_SIZE; i++){
+        // std::cout << "grid[row][i]: " << grid[row][i] << "\n";
+        // std::cout << "grid[i][col] " << grid[i][col] << "\n";
+        if (grid[row][i] == value || grid[i][col] == value)
+        {
+            return false;
+        }
+    }
+    // get 3x3 box where the value sits
+    int subRow = floor(row/(double)3);
+    int subCol = floor(col/(double)3);
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 3; j++){
+            // find if value exists in the 3x3 box
+            if (grid[i+subRow][j+subCol] == value)
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool SudokuBoard::solveBacktrack(int row, int col)
+{
+    std::cout << "solving... current row and col: " << row << ", " << col << "\n";
+    draw();
+    window.display();
+    
+    if (row == GRID_SIZE-1 && col == GRID_SIZE)
+        return true;
+
+    if (col == GRID_SIZE)
+    {
+        row++;
+        col = 0;
+    }
+
+    if (grid[row][col] > 0)
+        return solveBacktrack(row, col+1);
+
+    for (int i = 1; i <= 9; i++)
+    {
+        if (checkPossible(row, col, i))
+        {
+            grid[row][col] = i;
+            if (solveBacktrack(row, col+1))
+                return true;
+        }
+        
+        // backtrack step
+        grid[row][col] = 0;
+    }
+    std::cout << "returning false...\n";
+    return false;
+}
+
+
