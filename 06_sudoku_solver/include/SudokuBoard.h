@@ -15,6 +15,7 @@ private:
 
     sf::RenderWindow& window;
     std::array<std::array<int, GRID_SIZE>, GRID_SIZE> grid;
+    std::array<std::array<int, GRID_SIZE>, GRID_SIZE> originalGrid;
     sf::Font font;
 
     void drawGridLines();
@@ -29,8 +30,14 @@ public:
     void draw();
     sf::Vector2i getCellFromPosition(int x, int y);
     bool checkPossible(int row, int col, int value);
+
     bool solveBacktrack(int row, int col);
+
+    bool findEmptyLocation(int& row, int& col);
+    bool betterSolveBacktrack();
+    
     void printBoard();
+    void copyGrid();
 };
 
 #endif // SUDOKU_BOARD_H

@@ -4,6 +4,16 @@
 #include <chrono>
 #include <thread>
 
+void SudokuBoard::copyGrid() {
+    for (int i = 0; i < GRID_SIZE; i++)
+    {
+        for (int j = 0; j < GRID_SIZE; j++)
+        {
+            originalGrid[i][j] = grid[i][j];
+        }
+    }
+}
+
 void SudokuBoard::drawGridLines() {
     // HORIZONTAL LINES
     for (int i = 0; i <= GRID_SIZE; i++) {
@@ -33,7 +43,13 @@ void SudokuBoard::drawNumbers() {
                 text.setFont(font);
                 text.setString(std::to_string(grid[row][col]));
                 text.setCharacterSize(30);
-                text.setFillColor(sf::Color::Black);
+
+                // If part of original grid, fill color BLACK else BLUE
+                if (originalGrid[row][col] == 0)
+                    text.setFillColor(sf::Color::Blue);
+                else
+                    text.setFillColor(sf::Color::Black);
+
                 // Center numbers in the cell
                 sf::FloatRect textRect = text.getLocalBounds();
                 text.setPosition(col * CELL_SIZE + (CELL_SIZE - textRect.width) / 2,
@@ -136,7 +152,47 @@ bool SudokuBoard::solveBacktrack(int row, int col)
             setValue(row, col, 0);
         }
     }
-    std::cout << "returning false...\n";
+    return false;
+}
+
+bool SudokuBoard::findEmptyLocation(int& row, int& col)
+{
+    for (row = 0; row < GRID_SIZE; row++)
+    {
+        for (col = 0; col < GRID_SIZE; col++)
+        {
+            if (grid[row][col] == 0)
+                return true;
+        }
+    }
+    return false;
+}
+
+bool SudokuBoard::betterSolveBacktrack()
+{
+    draw();
+    window.display();
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    
+    int row, col;
+
+    if (!findEmptyLocation(row, col))
+        return true;
+
+    for (int num = 1; num <= 9; num++)
+    {
+        if (checkPossible(row, col, num))
+        {
+            grid[row][col] = num;
+
+            if (betterSolveBacktrack())
+                return true;
+
+            // backtrack step
+            grid[row][col] = 0;
+        }
+    }
+
     return false;
 }
 

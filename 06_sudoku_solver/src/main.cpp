@@ -53,6 +53,7 @@ int main() {
     sudokuBoard.setValue(8, 4, 1);
     sudokuBoard.setValue(8, 5, 8);
 
+    sudokuBoard.copyGrid();
     sudokuBoard.draw();
     window.display();
 
@@ -62,7 +63,7 @@ int main() {
         if (event.type == sf::Event::Closed)
           window.close();
         if (event.type == sf::Event::KeyPressed) {
-            if (sudokuBoard.solveBacktrack(0, 0))
+            if (sudokuBoard.betterSolveBacktrack())
             {
                 std::cout << "solved\n";
             } else {
