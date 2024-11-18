@@ -1,6 +1,8 @@
 #include "SudokuBoard.h"
 #include <iostream>
 #include <cmath>
+#include <chrono>
+#include <thread>
 
 void SudokuBoard::drawGridLines() {
     // HORIZONTAL LINES
@@ -88,8 +90,8 @@ bool SudokuBoard::checkPossible(int row, int col, int value){
         }
     }
     // get 3x3 box where the value sits
-    int subRow = floor(row/(double)3);
-    int subCol = floor(col/(double)3);
+    int subRow = floor(row/(double)3) * 3;
+    int subCol = floor(col/(double)3) * 3;
     for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
             // find if value exists in the 3x3 box
@@ -105,9 +107,10 @@ bool SudokuBoard::checkPossible(int row, int col, int value){
 
 bool SudokuBoard::solveBacktrack(int row, int col)
 {
-    std::cout << "solving... current row and col: " << row << ", " << col << "\n";
+    // std::cout << "solving... current row and col: " << row << ", " << col << "\n";
     draw();
     window.display();
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
     
     if (row == GRID_SIZE-1 && col == GRID_SIZE)
         return true;
@@ -125,16 +128,27 @@ bool SudokuBoard::solveBacktrack(int row, int col)
     {
         if (checkPossible(row, col, i))
         {
-            grid[row][col] = i;
+            setValue(row, col, i);
             if (solveBacktrack(row, col+1))
                 return true;
+
+            // backtrack step
+            setValue(row, col, 0);
         }
-        
-        // backtrack step
-        grid[row][col] = 0;
     }
     std::cout << "returning false...\n";
     return false;
+}
+
+void SudokuBoard::printBoard()
+{
+    std::cout << '\n';
+    for (int i = 0; i < GRID_SIZE; i++){
+        for (int j = 0; j < GRID_SIZE; j++){
+            std::cout << grid[i][j] << " ";
+        }
+        std::cout << '\n';
+    }
 }
 
 

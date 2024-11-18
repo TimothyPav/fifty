@@ -30,6 +30,7 @@ public:
     sf::Vector2i getCellFromPosition(int x, int y);
     bool checkPossible(int row, int col, int value);
     bool solveBacktrack(int row, int col);
+    void printBoard();
 };
 
 #endif // SUDOKU_BOARD_H
