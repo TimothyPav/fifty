@@ -16,12 +16,12 @@ private:
     sf::RenderWindow& window;
     std::array<std::array<int, GRID_SIZE>, GRID_SIZE> grid;
     std::array<std::array<int, GRID_SIZE>, GRID_SIZE> originalGrid;
-    sf::Font font;
 
     void drawGridLines();
     void drawNumbers();
 
 public:
+    sf::Font font;
     // Constructor
     SudokuBoard(sf::RenderWindow& window);
 
