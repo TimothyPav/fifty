@@ -3,6 +3,27 @@
 #include <SFML/Graphics/Color.hpp>
 #include <iostream>
 
+bool contains(const sf::RectangleShape& rec, sf::Vector2i& mousePos) {
+    float x{rec.getPosition().x};
+    float y{rec.getPosition().y};
+    float width{rec.getLocalBounds().width};
+    float height{rec.getLocalBounds().height};
+
+    // std::cout << "rec x: " << x << '\n';
+    // std::cout << "rec y: " << y << '\n';
+    // std::cout << "rec width: " << width << '\n';
+    // std::cout << "rec height: " << height << '\n';
+
+
+    if (x <= mousePos.x && x+width >= mousePos.x) {
+        if (y <= mousePos.y && y+height >= mousePos.y) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 int main() {
   sf::RenderWindow window(sf::VideoMode(540, 800), "Sudoku");
 
@@ -93,6 +114,7 @@ int main() {
         buttons.push_back({rec, text});
     }
 
+    static bool lock_click;
     while (window.isOpen()) {
       sf::Event event;
 
@@ -106,6 +128,18 @@ int main() {
             std::cout << "impossible to solve\n";
           }
         }
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && lock_click != true) {
+            lock_click = true;
+            std::cout << "Left Click: " << sf::Mouse::getPosition(window).x << ", " << sf::Mouse::getPosition(window).y << '\n';
+            for (const auto& pair : buttons) {
+                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+                if (contains(pair.first, mousePos)) {
+                    std::cout << pair.second.getString().toAnsiString() << '\n';
+                }
+            }
+        }
+        if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
+            lock_click = false;
       }
       sudokuBoard.draw();
       for (int i=0; i<buttons.size(); i++) {
