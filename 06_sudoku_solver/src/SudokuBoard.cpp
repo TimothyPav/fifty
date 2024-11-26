@@ -22,7 +22,7 @@ void SudokuBoard::drawGridLines() {
                         (i % 3 == 0) ? THICK_LINK_THICKNESS : LINE_THICKNESS));
         line.setPosition(0, i * CELL_SIZE);
         line.setFillColor(sf::Color::Black);
-        window.draw(line);
+    window.draw(line);
     }
     // VERTICAL LINES
     for (int i = 0; i <= GRID_SIZE; i++) {
@@ -33,6 +33,12 @@ void SudokuBoard::drawGridLines() {
         line.setFillColor(sf::Color::Black);
         window.draw(line);
     }
+}
+
+void SudokuBoard::reset() {
+    std::cout << "FROM RESET METHOD\n";
+   grid = originalGrid;
+   draw();
 }
 
 void SudokuBoard::drawNumbers() {
@@ -89,6 +95,15 @@ void SudokuBoard::draw() {
     window.clear(sf::Color::White);
     drawGridLines();
     drawNumbers();
+
+    // test
+    for (int i=0; i<buttons.size(); i++) {
+        window.draw(buttons[i].first);
+        window.draw(buttons[i].second);
+    }
+    window.draw(text);
+
+
 }
 
 sf::Vector2i SudokuBoard::getCellFromPosition(int x, int y) {
@@ -207,4 +222,11 @@ void SudokuBoard::printBoard()
     }
 }
 
+void SudokuBoard::setButtons(std::vector<std::pair<sf::RectangleShape, sf::Text>>& b) {
+    this->buttons = b;
+}
+
+void SudokuBoard::setText(sf::Text& text) {
+    this->text = text;
+}
 

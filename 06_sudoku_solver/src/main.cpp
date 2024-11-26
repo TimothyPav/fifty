@@ -2,6 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <iostream>
+#include <unordered_map>
+#include <functional>
+#include <string>
+#include <chrono>
 
 bool contains(const sf::RectangleShape& rec, sf::Vector2i& mousePos) {
     float x{rec.getPosition().x};
@@ -86,6 +90,7 @@ int main() {
     text.setString("Time: 2.035s");
     text.setPosition(10.f, 550);
     text.setFillColor(sf::Color::Black);
+    sudokuBoard.setText(text);
 
     for (int i=0; i<5; i++) {
         int yPos{(i+1)*10 + 540 + (73 * i)};
@@ -114,27 +119,46 @@ int main() {
         buttons.push_back({rec, text});
     }
 
+    sudokuBoard.setButtons(buttons);
+
+    std::unordered_map<std::string, std::function<bool()>> funcMap;
+    funcMap["Algorithm 1"] = [&sudokuBoard]() { 
+        // time start
+        auto start = std::chrono::high_resolution_clock::now();
+        std::cout << start.time_since_epoch().count() << '\n';
+
+        // TODO: pass time as parameter so you can set text inside backtrack method
+        bool solved = sudokuBoard.solveBacktrack(0, 0); 
+        // time end
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = end - start;
+        std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;
+        
+        return solved;
+    };
+    funcMap["Algorithm 2"] = [&sudokuBoard]() { return sudokuBoard.betterSolveBacktrack(); };
+    funcMap["Algorithm 3"] = [&sudokuBoard]() { return false; };
+    funcMap["Reset"]     = [&sudokuBoard]() { 
+        sudokuBoard.reset();
+        return true; };
+    funcMap["Shuffle"]       = [&sudokuBoard]() { return false; };
+
     static bool lock_click;
     while (window.isOpen()) {
+      window.clear(sf::Color::White);
       sf::Event event;
 
       while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
           window.close();
-        if (event.type == sf::Event::KeyPressed) {
-          if (sudokuBoard.betterSolveBacktrack()) {
-            std::cout << "solved\n";
-          } else {
-            std::cout << "impossible to solve\n";
-          }
-        }
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && lock_click != true) {
             lock_click = true;
-            std::cout << "Left Click: " << sf::Mouse::getPosition(window).x << ", " << sf::Mouse::getPosition(window).y << '\n';
+            // std::cout << "Left Click: " << sf::Mouse::getPosition(window).x << ", " << sf::Mouse::getPosition(window).y << '\n';
             for (const auto& pair : buttons) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 if (contains(pair.first, mousePos)) {
-                    std::cout << pair.second.getString().toAnsiString() << '\n';
+                    std::string buttonText = pair.second.getString().toAnsiString();
+                    std::cout << funcMap[buttonText]() << '\n';
                 }
             }
         }

@@ -22,6 +22,9 @@ private:
 
 public:
     sf::Font font;
+    std::vector<std::pair<sf::RectangleShape, sf::Text>> buttons;
+    sf::Text text;
+
     // Constructor
     SudokuBoard(sf::RenderWindow& window);
 
@@ -38,6 +41,10 @@ public:
     
     void printBoard();
     void copyGrid();
+    void reset();
+
+    void setButtons(std::vector<std::pair<sf::RectangleShape, sf::Text>>& b);
+    void setText(sf::Text& text);
 };
 
 #endif // SUDOKU_BOARD_H
