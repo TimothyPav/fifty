@@ -1,31 +1,31 @@
 #include "SudokuBoard.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <iostream>
-#include <unordered_map>
-#include <functional>
-#include <string>
 #include <chrono>
+#include <cmath>
+#include <functional>
+#include <iostream>
+#include <string>
+#include <unordered_map>
 
-bool contains(const sf::RectangleShape& rec, sf::Vector2i& mousePos) {
-    float x{rec.getPosition().x};
-    float y{rec.getPosition().y};
-    float width{rec.getLocalBounds().width};
-    float height{rec.getLocalBounds().height};
+bool contains(const sf::RectangleShape &rec, sf::Vector2i &mousePos) {
+  float x{rec.getPosition().x};
+  float y{rec.getPosition().y};
+  float width{rec.getLocalBounds().width};
+  float height{rec.getLocalBounds().height};
 
-    // std::cout << "rec x: " << x << '\n';
-    // std::cout << "rec y: " << y << '\n';
-    // std::cout << "rec width: " << width << '\n';
-    // std::cout << "rec height: " << height << '\n';
+  // std::cout << "rec x: " << x << '\n';
+  // std::cout << "rec y: " << y << '\n';
+  // std::cout << "rec width: " << width << '\n';
+  // std::cout << "rec height: " << height << '\n';
 
-
-    if (x <= mousePos.x && x+width >= mousePos.x) {
-        if (y <= mousePos.y && y+height >= mousePos.y) {
-            return true;
-        }
+  if (x <= mousePos.x && x + width >= mousePos.x) {
+    if (y <= mousePos.y && y + height >= mousePos.y) {
+      return true;
     }
+  }
 
-    return false;
+  return false;
 }
 
 int main() {
@@ -87,61 +87,82 @@ int main() {
     sf::Text text;
     text.setFont(sudokuBoard.font);
     text.setCharacterSize(40);
-    text.setString("Time: 2.035s");
+    text.setString("Time:");
     text.setPosition(10.f, 550);
     text.setFillColor(sf::Color::Black);
     sudokuBoard.setText(text);
 
-    for (int i=0; i<5; i++) {
-        int yPos{(i+1)*10 + 540 + (73 * i)};
-        sf::RectangleShape rec(sf::Vector2f(200.f, 73.f));
-        sf::Text text;
-        text.setFont(sudokuBoard.font);
-        text.setCharacterSize(30);
-        rec.setFillColor(sf::Color::Red);
-        if (i < 3){
-            rec.move(sf::Vector2f(335.f, yPos));
-            text.setPosition(345.f, yPos+15);
-            std::string algo = "Algorithm " + std::to_string(i+1);
-            text.setString(algo);
-        }
-        else {
-            yPos = {(i+1-2)*10 + 540 + (73*(i-2))};
-            rec.move(sf::Vector2f(10.f, yPos));
-            text.setPosition(20.f, yPos+15);
-            std::string option;
-            if (i == 3)
-                option = "Shuffle";
-            else if (i == 4)
-                option = "Reset";
-            text.setString(option);
-        }
-        buttons.push_back({rec, text});
+    for (int i = 0; i < 5; i++) {
+      int yPos{(i + 1) * 10 + 540 + (73 * i)};
+      sf::RectangleShape rec(sf::Vector2f(200.f, 73.f));
+      sf::Text text;
+      text.setFont(sudokuBoard.font);
+      text.setCharacterSize(30);
+      rec.setFillColor(sf::Color::Red);
+      if (i < 3) {
+        rec.move(sf::Vector2f(335.f, yPos));
+        text.setPosition(345.f, yPos + 15);
+        std::string algo = "Algorithm " + std::to_string(i + 1);
+        text.setString(algo);
+      } else {
+        yPos = {(i + 1 - 2) * 10 + 540 + (73 * (i - 2))};
+        rec.move(sf::Vector2f(10.f, yPos));
+        text.setPosition(20.f, yPos + 15);
+        std::string option;
+        if (i == 3)
+          option = "Shuffle";
+        else if (i == 4)
+          option = "Reset";
+        text.setString(option);
+      }
+      buttons.push_back({rec, text});
     }
 
     sudokuBoard.setButtons(buttons);
 
     std::unordered_map<std::string, std::function<bool()>> funcMap;
-    funcMap["Algorithm 1"] = [&sudokuBoard]() { 
-        // time start
-        auto start = std::chrono::high_resolution_clock::now();
-        std::cout << start.time_since_epoch().count() << '\n';
+    funcMap["Algorithm 1"] = [&sudokuBoard, &text]() {
+      // time start
+      auto start = std::chrono::high_resolution_clock::now();
 
-        // TODO: pass time as parameter so you can set text inside backtrack method
-        bool solved = sudokuBoard.solveBacktrack(0, 0); 
-        // time end
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> elapsed = end - start;
-        std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;
-        
-        return solved;
+      bool solved = sudokuBoard.solveBacktrack(0, 0);
+      // time end
+      auto end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> elapsed = end - start;
+
+      std::string timeElapsed = "Time: " + std::to_string(elapsed.count());
+      text.setString(timeElapsed);
+
+      return solved;
     };
-    funcMap["Algorithm 2"] = [&sudokuBoard]() { return sudokuBoard.betterSolveBacktrack(); };
-    funcMap["Algorithm 3"] = [&sudokuBoard]() { return false; };
-    funcMap["Reset"]     = [&sudokuBoard]() { 
-        sudokuBoard.reset();
-        return true; };
-    funcMap["Shuffle"]       = [&sudokuBoard]() { return false; };
+    funcMap["Algorithm 2"] = [&sudokuBoard, &text]() {
+      auto start = std::chrono::high_resolution_clock::now();
+      bool solved = sudokuBoard.betterSolveBacktrack();
+      auto end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> elapsed = end - start;
+      std::string timeElapsed = "Time: " + std::to_string(elapsed.count());
+      text.setString(timeElapsed);
+
+      return solved;
+    };
+    funcMap["Algorithm 3"] = [&sudokuBoard, &text]() {
+      auto start = std::chrono::high_resolution_clock::now();
+      bool solved = sudokuBoard.betterSolveBacktrack();
+      auto end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> elapsed = end - start;
+      std::string timeElapsed = "Time: " + std::to_string(elapsed.count());
+      text.setString(timeElapsed);
+
+      return solved;
+    };
+    funcMap["Shuffle"] = [&sudokuBoard]() {
+      sudokuBoard.shuffle();
+      return true;
+    };
+    funcMap["Reset"] = [&sudokuBoard]() {
+      sudokuBoard.reset();
+      return true;
+    };
 
     static bool lock_click;
     while (window.isOpen()) {
@@ -151,24 +172,26 @@ int main() {
       while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
           window.close();
-        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left && lock_click != true) {
-            lock_click = true;
-            // std::cout << "Left Click: " << sf::Mouse::getPosition(window).x << ", " << sf::Mouse::getPosition(window).y << '\n';
-            for (const auto& pair : buttons) {
-                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-                if (contains(pair.first, mousePos)) {
-                    std::string buttonText = pair.second.getString().toAnsiString();
-                    std::cout << funcMap[buttonText]() << '\n';
-                }
+        if (event.type == sf::Event::MouseButtonPressed &&
+            event.mouseButton.button == sf::Mouse::Left && lock_click != true) {
+          lock_click = true;
+          // std::cout << "Left Click: " << sf::Mouse::getPosition(window).x <<
+          // ", " << sf::Mouse::getPosition(window).y << '\n';
+          for (const auto &pair : buttons) {
+            sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+            if (contains(pair.first, mousePos)) {
+              std::string buttonText = pair.second.getString().toAnsiString();
             }
+          }
         }
-        if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
-            lock_click = false;
+        if (event.type == sf::Event::MouseButtonReleased &&
+            event.mouseButton.button == sf::Mouse::Left)
+          lock_click = false;
       }
       sudokuBoard.draw();
-      for (int i=0; i<buttons.size(); i++) {
-          window.draw(buttons[i].first);
-          window.draw(buttons[i].second);
+      for (int i = 0; i < buttons.size(); i++) {
+        window.draw(buttons[i].first);
+        window.draw(buttons[i].second);
       }
       window.draw(text);
       window.display();

@@ -42,6 +42,8 @@ public:
     void printBoard();
     void copyGrid();
     void reset();
+    void shuffle();
+    bool blankRandomSolve(); 
 
     void setButtons(std::vector<std::pair<sf::RectangleShape, sf::Text>>& b);
     void setText(sf::Text& text);
